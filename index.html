@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<!-- Metadata -->
+<head>
+  <meta charset='utf-8'>
+
+  <script src="https://d3js.org/d3.v4.js"></script>
+
+  <!-- Title -->
+  <title>Vaccine Stock Analysis, DS4200 F21</title>
+  
+  <!-- CSS Styling -->
+  <link rel='stylesheet' href='style.css'>
+
+  <!-- Favicons -->
+  <link rel='apple-touch-icon' sizes='180x180' href='favicons/apple-touch-icon.png'>
+  <link rel='icon' type='image/png' sizes='32x32' href='favicons/favicon-32x32.png'>
+  <link rel='icon' type='image/png' sizes='16x16' href='favicons/favicon-16x16.png'>
+  <link rel='manifest' href='favicons/site.webmanifest'>
+  <link rel='shortcut icon' href='favicons/favicon.ico'>
+  <meta name='msapplication-TileColor' content='#da532c'>
+  <meta name='msapplication-config' content='favicons/browserconfig.xml'>
+  <meta name='theme-color' content='#ffffff'>
+</head>
+
+<!-- Main page content -->
+<body>
+
+  <!-- Update this with your GitHub repo URL -->
+  <span id='forkongithub'><a href='https://github.com/DS4200-Fall21-Sec02/project-vaccine-stocks-vn-si-ac-hp-mc-jc'>Fork me on GitHub</a></span>
+
+  <!-- Writeup -->
+  <div class='content-column'>
+   <h1>Vaccine Stock Analysis, DS4200 F21</h1>
+    
+    <p><strong>Haden Pelletier</strong>, <strong>Jacob Chung</strong>, <strong>Monroe Chung</strong>, <strong>Ally Chao</strong>, <strong>Varun Narahari</strong>, <strong>Stella Ikpatt</strong></p>
+    
+    <p>Course Project as part of
+	<a href='https://northeastern.instructure.com/courses/18721'>DS4200 F21: Information Visualization</a>, 
+	taught by <a href='https://www.khoury.northeastern.edu/home/amosca/'>Prof. Ab Mosca</a>, 
+	<a href='https://visualization.khoury.northeastern.edu/'>Data Visualization @ Khoury</a>, 
+	<a href='https://www.khoury.northeastern.edu/'>Northeastern University</a>.</p>
+    
+    
+    <h1>Abstract</h1>
+    
+    <p>Throughout the COVID pandemic, companies that developed vaccines saw a surge 
+      in their stock prices while many others suffered a decline. The purpose of this 
+      project is to analyze the relative price performance of six different vaccine/medical 
+      device companies. The primary objective is to utilize historical price data to uncover 
+      trends/correlations amidst the companies. We plan on accomplishing this by graphing 
+      the price data against other statistical measures such as volume (the number of shares
+       traded during market hours).</p>
+
+    
+    <h1>Visualization</h1>
+    
+  </div>
+  
+  <!-- Visualization goes here -->
+  <div class='vis-holder'>
+    <!-- Change viewbox to whatever you want, e.g., '0 0 1000 6000' This determines your aspect ratio and coordinate system -->    
+    <!-- Delete all the sample SVG code below after the viewbox to before the closing tag. Populate this part of the SVG with D3. -->
+    <select id="selectButton"></select>
+    <div class="vis-holder" id='vis-svg-1' ></div>
+  </div>
+  
+  <!-- Further writeup -->
+  <div class = 'content-column'>
+
+    <h1>Demo Video</h1>
+    
+  <video controls width='100%'>
+    <source src='Untitled_%20Dec%202,%202021%2011_10%20PM.mp4' type='video/mp4'>
+    <track src="Untitled_%20Dec%202,%202021%2011_10%20PM.mp4.vtt" label="English" kind="captions" srclang="en-us" default >
+  </video>
+
+
+    <h1>Visualization explanation</h1>
+    
+    <p>The visualization on the left is a line chart, where each company corresponds to a line. 
+      In the legend, we have 6 companies all with a coresponding color. There is a filter where you can choose
+      between open, close, high, low, adjusted close price and the line chart will update. When you
+    hover over the line, the company name, date, and current price will show. </p>
+
+    <p>The visualization on the right is a bar chart. Each company has a bar corresponding to the total 
+      volume of stock. We used different color encodings to differentiate the bars. There is brushing and linking between the bar chart
+	and the line chart. You can click on a bar, and the corresponding line will highlight in the line chart. If you 
+	  select multiple bars, then multiple lines will be selected.</p>
+
+    
+    <h1>Acknowledgments</h1>
+
+    <p>
+      List here where any code, packages/libraries, text, images, designs, etc. that you leverage come from.
+    </p>
+
+    <ul>
+      <li><a href='https://d3js.org/'>
+        D3: Data-Driven Documents</a>
+        by Mike Bostock is used for manipulating the DOM to create visualizations.
+      </li>
+      <li><a href='https://codepo8.github.io/css-fork-on-github-ribbon/#'>
+        Pure CSS responsive 'Fork me on GitHub' ribbon</a>
+        by Chris Heilmann is used to create the banner that links back to the source code repository.
+      </li>
+      <li><a href='https://github.com/NEU-DS-4200-F20-Staff/Project'>
+        Project</a>
+        by Cody Dunne is used to create this assignment.
+      </li>
+      <li><a href='https://www.d3-graph-gallery.com/graph/line_several_group.html'>
+        Line plot with several groups</a>
+        by D3.js graph gallery is used as reference to create the line plot.
+      </li>
+      <li><a href='https://www.d3-graph-gallery.com/graph/interactivity_brush.html'>
+        Brushing and Linking</a>
+        by D3.js graph gallery is used as reference to link our bar chart and line chart.
+      </li>
+	<li><a href='https://www.d3-graph-gallery.com/graph/line_filter.html'>
+        Filter group</a>
+        by D3.js graph gallery is used as reference to filter our line chart by measure.
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Scripts at the end avoid need for dealing with async, defer, or onload event handlers -->
+  <script src='lib/d3.v6.1.1/d3.min.js'></script>
+  <script src='js/visualization.js'></script>
+</body>
+</html>
