@@ -1,5 +1,5 @@
 :root {
-  --green: #00FF00;
+  --gray: #cccccc;
   --white: #ffffff;
   --black: #000000;
   --btnFontColor: #cccccc;
@@ -31,7 +31,7 @@ li {
 }
 
 .light-theme {
-  --bg: var(--green);
+  --bg: var(--gray);
   --fontColor: var(--black);
   --btnBg: var(--black);
   --btnFontColor: var(--white);
@@ -39,7 +39,7 @@ li {
 
 .dark-theme {
   --bg: var(--black);
-  --fontColor: var(--green);
+  --fontColor: var(--gray);
   --btnBg: var(--white);
   --btnFontColor: var(--black);
 }

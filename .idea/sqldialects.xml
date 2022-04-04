@@ -7,7 +7,7 @@
   </component>
   <component name="SqlResolveMappings">
     <file url="file://$PROJECT_DIR$" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;85a2177a-c9fb-4851-b931-0d8223b0abfd&quot;    }   }  } }}" />
-    <file url="file://$PROJECT_DIR$/python/setData.py" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;@negative&quot;:&quot;1&quot;   }  } }}" />
+    <file url="file://$PROJECT_DIR$/python/setData.py" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;85a2177a-c9fb-4851-b931-0d8223b0abfd&quot;    }   }  } }}" />
     <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;85a2177a-c9fb-4851-b931-0d8223b0abfd&quot;    }   }  } }}" />
   </component>
 </project>
