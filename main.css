@@ -87,16 +87,17 @@ li {
 }
 
 .row {
+  background-color: #999999;
   text-align: center;
-  margin: 0 40px 0 0;
+  /*margin: 0 0 0 0;*/
 }
 
 .tier-row {
   display: flex;
   flex-direction: row;
   min-height: 80px;
-  border-top: solid 1px #000;
-  border-bottom: solid 1px #000;
+  border-top: solid 20px #000;
+  border-bottom: solid 20px #000;
 }
 
 .light-theme {
