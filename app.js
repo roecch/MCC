@@ -1,109 +1,155 @@
 'use strict'
 
-const switcher = document.querySelector('.btn');
-
-switcher.addEventListener('click', function() {
-  document.body.classList.toggle('dark-theme')
-
-  var className = document.body.className;
-  if(className == "light-theme") {
-    this.textContent = "Dark";
-  }
-  else {
-    this.textContent = "Light";
-  }
-  console.log('current class name: ' + className);
-});
-
-
-const players1to9 = document.getElementById('1-9');
-const playersAtoD = document.getElementById('A-D');
-const playersEtoI = document.getElementById('E-I');
-const playersJtoK = document.getElementById('J-K');
-const playersLtoP = document.getElementById('L-P');
-const playersQtoS = document.getElementById('Q-S');
-const playersTtoZ = document.getElementById('T-Z');
+const players_menu = document.getElementById('vertical-menu');
 const playerMap = getPlayerImgMap();
 
-window.onload = (event) => {
-  console.log(playerMap);
-  console.log(playerMap.keys());
-  console.log(playerMap.entries());
+window.onload = () => {
+    for (let [index, value] of playerMap.entries()) {
+        let img = document.createElement("img");
+        img.src = value.toString();
+        img.alt = index + " Icon";
+        img.draggable = true;
+        img.setAttribute("class", "player")
+        img.setAttribute("height", '50px')
+        img.setAttribute("width", '50px')
 
-  for (let [index,value] of playerMap.entries()) {
-    let img = document.createElement("img");
-    img.src = value;
-    img.alt = index + " Icon";
-    img.draggable = false;
-    img.setAttribute("id", "player" + index)
-    img.setAttribute("class", "player")
-    let imgDiv = document.createElement("p");
-    imgDiv.appendChild(img)
-    if (['1','2','3','4','5','6','7','8','9'].includes(index.substring(0,1)))
-      players1to9.appendChild(imgDiv);
-    else if (['A','B','C','D'].includes(index.substring(0,1)))
-      playersAtoD.appendChild(imgDiv);
-    else if (['E','F','G','H','I'].includes(index.substring(0,1)))
-      playersEtoI.appendChild(imgDiv);
-    else if (['J','K'].includes(index.substring(0,1)))
-      playersJtoK.appendChild(imgDiv);
-    else if (['L','M','N','O','P'].includes(index.substring(0,1)))
-      playersLtoP.appendChild(imgDiv);
-    else if (['Q','R','S'].includes(index.substring(0,1)))
-      playersQtoS.appendChild(imgDiv);
-    else if (['T','U','V','W','X','Y','Z'].includes(index.substring(0,1)))
-      playersTtoZ.appendChild(imgDiv);
-  }};
+        let imgDiv = document.createElement("player-div")
+        let text = document.createTextNode(index.toString())
+        let imgAndTextDiv = document.createElement("div")
+        let textDiv = document.createElement("a")
 
+        imgDiv.appendChild(img)
+        imgDiv.classList.add("draggable");
+        imgDiv.setAttribute('draggable', 'true')
 
-const players = document.querySelectorAll('player')
-console.log(players)
+        imgDiv.id = index.toString();
 
-for (let play of players) {
-  dragElement(play)
-  console.log(play)
+        textDiv.appendChild(text)
+        textDiv.classList.add("text-for-img")
+
+        imgAndTextDiv.appendChild(imgDiv)
+        imgAndTextDiv.appendChild(textDiv)
+
+        players_menu.appendChild(imgAndTextDiv);
+    }
+};
+
+const source = document.getElementsByClassName("draggable");
+console.log(source)
+const target = document.getElementsByClassName("droppable");
+console.log(target)
+const event_log = document.getElementById("event-log");
+
+for (let item of source) {
+    item.addEventListener('click', function handleClick() {
+        // event_log.textContent += "click\n";
+        item.setAttribute('style', 'background-color: yellow;');
+    });
+
+    item.addEventListener('dragstart', function dragstart_handler(ev) {
+        // event_log.textContent += "dragStart\n";
+        // Change the source element's background color to signify drag has started
+        item.setAttribute('style', 'background-color: yellow;');
+        ev.dataTransfer.setData("text", ev.target.id);
+    });
 }
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
+for (let item of target) {
+    item.addEventListener('dragenter',  function dragenter_handler(ev) {
+        // event_log.textContent += "dragEnter\n";
+        ev.preventDefault()
+    });
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+    item.addEventListener('dragleave', function dragleave_handler(ev) {
+        ev.preventDefault()
+        // ev.target.style.border = '2px solid #ccc'
+    });
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+    item.addEventListener('dragover', function dragover_handler(ev) {
+        ev.preventDefault()
+        // ev.target.style.border = '1px solid green'
+    });
 
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+    item.addEventListener('drop', function drop_handler(ev) {
+        // event_log.textContent += "drop\n";
+        ev.preventDefault()
+        let data = ev.dataTransfer.getData('text')
+        console.log(data)
+        data = data.substring(data.lastIndexOf('/') + 1, data.indexOf('.'))
+        console.log(data)
+        const newElement = document.getElementById(data)
+        const style = getComputedStyle(ev.target)
+        newElement.firstElementChild.setAttribute('height', style.height)
+        newElement.firstElementChild.setAttribute('width', style.width)
+
+        newElement.setAttribute('height', style.height)
+        newElement.setAttribute('width', style.width)
+
+        console.log(newElement)
+        ev.target.appendChild(newElement)
+        // ev.target.style.border = 'none'
+        newElement.style.border = 'none'
+        ev.dataTransfer.clearData()
+    });
 }
 
+// Set click event listener on button to reload the example
+const button = document.getElementById("reload");
+button.addEventListener("click", () => {
+    display_team_coin_avg()
+    // document.location.reload();
+});
 
+function get_players_under_each_team() {
+    let all_team_holders = document.getElementById('droppable-holder').children;
+    all_team_holders = Array.from(all_team_holders).filter(function(str) {
+        return str.id.startsWith('droppable-') && str.id.endsWith('-holder')
+    });
+    console.log(all_team_holders)
+    let players_under_each_team = [];
+    for (let key in all_team_holders) {
+        let teamArray = [...all_team_holders[key].children]
+        const team_color = teamArray[0].className.split('-')[1]
 
+        teamArray = teamArray.map((player_holder) => {
+            let player_div_data = player_holder.innerHTML
+            player_div_data = player_div_data.substring(player_div_data.indexOf('id=\"') + 4)
+            console.log(player_div_data.substring(0, player_div_data.indexOf('\"')))
+            return player_div_data.substring(0, player_div_data.indexOf('\"'))})
+        players_under_each_team[team_color] = teamArray
+    }
+    return players_under_each_team
+}
+
+let players_by_team;
+function get_latest_changed_players() {
+    let last_players_by_team = players_by_team;
+    players_by_team = get_players_under_each_team()
+    let hash_of_changes_players = [];
+
+    for (let key in players_by_team) {
+        console.log(key)
+        let current_team_state = players_by_team[key]
+        let prev_team_state;
+        try {
+            prev_team_state = last_players_by_team[key]
+        } catch(e) {
+            prev_team_state = ['','','','']
+        }
+        if (current_team_state !== prev_team_state) {
+            let difference = current_team_state.filter(x => !prev_team_state.includes(x));
+            hash_of_changes_players[key] = difference.map((index) => current_team_state.indexOf(index))
+        }
+    }
+    console.log(hash_of_changes_players)
+    return hash_of_changes_players
+}
+
+$(document).ready(function() {
+    document.getElementsByTagName("html")[0].style.visibility = "visible";
+});
+
+const team_points_holders = document.getElementsByClassName('team-points')
+
+function display_team_coin_avg() {
+}

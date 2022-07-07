@@ -1,170 +1,247 @@
 :root {
-  --gray: #cccccc;
-  --white: #ffffff;
-  --black: #000000;
-  --btnFontColor: #cccccc;
-  --btnBg: #444444;
-}
-* {
-  color: var(--fontColor);
-  font-family: helvetica;
-}
-body {
-  background: var(--bg);
-  font-family: monospace;
-}
-
-ul {
-  font-family: helvetica;
-}
-
-li {
-  list-style: circle;
-}
-
-/*body { overflow: hidden; }*/
-/*img {*/
-/*  position: absolute;*/
-/*  left: -100%;*/
-/*  margin: 7em -244px;*/
-/*  animation: slide 4s infinite;*/
-/*}*/
-/*@keyframes slide {*/
-/*  0% { left: -150%; }*/
-/*  35% { left: 50%; }*/
-/*  65% { left: 50%; }*/
-/*  100% { left: 150%; }*/
-/*}*/
-
-.list {
-  list-style: square;
-}
-
-#msg {
-  font-family: monospace;
+    --gray: #cccccc;
+    --white: #ffffff;
+    --black: #000000;
+    --btnFontColor: #cccccc;
+    --btnBg: #444444;
 }
 
 .team {
-  display: inline-block;
-  position: relative;
-  width: 20%;
-  height: auto;
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    height: auto;
 }
 
 .tag {
-  float: left;
-  position: absolute;
-  z-index: 1000;
-  background-color: #92AD40;
-  padding: 5px;
-  color: #FFFFFF;
-  font-weight: bold;
+    float: left;
+    position: absolute;
+    z-index: 1000;
+    background-color: #92AD40;
+    padding: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
 }
 
 .icon {
-  width: 5%;
-  height: 5%;
+    width: 5%;
+    height: 5%;
 }
 
 .logo {
-  width: 20%;
-  height: auto;
+    width: 20%;
+    height: auto;
 }
 
 .player {
-  margin: 1px 0px 0px 1px;
-  /*padding: 10px;*/
-  width: 50px;
-  height: 50px;
+    /*margin: 1px 0px 0px 1px;*/
+    /*padding: 10px;*/
+    /*width: 50px;*/
+    /*height: 50px;*/
 }
 
 .player:hover {
-  cursor: grab;
+    cursor: grab;
 }
 
 .player:active {
-  cursor: grabbing;
+    cursor: grabbing;
+}
+
+.team-holder {
+    background-size: contain;
+    background-repeat: no-repeat;
+    /*height: 300px;*/
+    /*width: 500px;*/
+    align-content: center;
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    height: 20%;
+}
+
+.team-points {
+    text-align: center;
+}
+
+#droppable-red-holder {
+    background-image: url('images/team/Red.jpg');
+}
+
+#droppable-orange-holder {
+    background-image: url("images/team/2. Orange.jpg");
+}
+
+#droppable-yellow-holder {
+    background-image: url("images/team/3. Yellow.jpg");
+}
+
+#droppable-lime-holder {
+    background-image: url("images/team/4. Lime.jpg");
+}
+
+#droppable-green-holder {
+    background-image: url("images/team/5. Green.jpg");
+}
+
+#droppable-aqua-holder {
+    background-image: url("images/team/6. Aqua.jpg");
+}
+
+#droppable-cyan-holder {
+    background-image: url("images/team/7. Cyan.jpg");
+}
+
+#droppable-blue-holder {
+    background-image: url("images/team/8. Blue.jpg");
+}
+
+#droppable-pink-holder {
+    background-image: url("images/team/9. Pink.jpg");
+}
+
+#droppable-purple-holder {
+    background-image: url("images/team/10. Purple.jpg");
 }
 
 .row {
-  background-color: #999999;
-  text-align: center;
-  /*margin: 0 0 0 0;*/
+    background-color: #999999;
+    text-align: center;
+    margin: 0 0 0 0;
 }
 
 .tier-row {
-  display: flex;
-  flex-direction: row;
-  min-height: 80px;
-  border-top: solid 20px #000;
-  border-bottom: solid 20px #000;
+    display: flex;
+    flex-direction: row;
+    min-height: 80px;
+    border-top: solid 20px #000;
+    border-bottom: solid 20px #000;
 }
 
-.light-theme {
-  --bg: var(--gray);
-  --fontColor: var(--black);
-  --btnBg: var(--black);
-  --btnFontColor: var(--white);
+.vertical-menu {
+    margin-top: 100px;
+    width: 250px;
+    height: 500px;
+    overflow-y: auto;
 }
 
-.dark-theme {
-  --bg: var(--black);
-  --fontColor: var(--gray);
-  --btnBg: var(--white);
-  --btnFontColor: var(--black);
+.vertical-menu div {
+    text-align: left;
+    background-color: #04AA6D;
+    color: black;
+    /*display: block;*/
+    padding: 12px;
+    text-decoration: none;
+    display: flex;
 }
 
-.btn {
-  position: absolute;
-  top: 20px;
-  left: 250px;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: none;
-  color: var(--btnFontColor);
-  background-color: var(--btnBg);
+.vertical-menu div:hover {
+    background-color: #92AD40;
 }
 
-.btn:focus { outline-style: none; }
-
-.dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  width: 80px;
-  border: none;
-  cursor: pointer;
-  transform: translateX(-8px);
-}
-.multDropdown {
-  display: table;
-  /*transform: translateX(-8px);*/
+.vertical-menu div.active {
+    background-color: #3e8e41;
+    color: white;
 }
 
-.dropdown {
-  /*display: inline-block;*/
-  vertical-align: middle;
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  transform: translateX(72px) translateY(-50px);
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
-.dropdown:hover .dropdown-content {display: block;}
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
 
+.clear {
+    clear: both;
+}
+
+#draggable-holder {
+    margin: 20px 0;
+}
+
+.draggable {
+    position: relative;
+    /*width: 100px;*/
+    /*height: 70px;*/
+    /*border: 1px dotted #ccc;*/
+    float: left;
+    margin: 0 20px 0 0;
+    /*padding: 30px 0 0 0;*/
+    text-align: center;
+}
+
+.text-for-img {
+    height: 40px;
+    line-height: 55px;
+    text-align: center;
+}
+
+.droppable-holder {
+}
+
+.droppable {
+    border: 2px solid;
+    /*height: 5vh;*/
+    /*width: 5vh;*/
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+.drop-red {
+    border-color: #FF0000;
+}
+.drop-orange {
+    border-color: #FFA500;
+}
+.drop-yellow {
+    border-color: #FFFF00;
+}
+.drop-lime {
+    border-color: #00FF55;
+}
+.drop-green {
+    border-color: #32CD32;
+}
+.drop-aqua {
+    border-color: #00FFFF;
+}
+.drop-cyan {
+    border-color: #008b8b;
+}
+.drop-blue {
+    border-color: #0000FF;
+}
+.drop-purple {
+    border-color: #AA00FF;
+}
+.drop-pink {
+    border-color: #FF69B4;
+}
+
+.mo {
+    background: #eee;
+}
+
+.locked {
+    cursor: default;
+    background: #fffea1;
+}
+
+.locked-border {
+    border: 1px solid #fc0;
+}
