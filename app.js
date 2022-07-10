@@ -4,6 +4,12 @@ const players_menu = document.getElementById('vertical-menu');
 const playerMap = getPlayerImgMap();
 
 window.onload = () => {
+    set_menu()
+    set_drag_drop()
+    updating_player_card()
+};
+
+function set_menu() {
     for (let [index, value] of playerMap.entries()) {
         let img = document.createElement("img");
         img.src = value.toString();
@@ -29,76 +35,75 @@ window.onload = () => {
 
         imgAndTextDiv.appendChild(imgDiv)
         imgAndTextDiv.appendChild(textDiv)
+        imgAndTextDiv.classList.add("img-txt-div")
 
         players_menu.appendChild(imgAndTextDiv);
     }
-};
-
-const source = document.getElementsByClassName("draggable");
-console.log(source)
-const target = document.getElementsByClassName("droppable");
-console.log(target)
-const event_log = document.getElementById("event-log");
-
-for (let item of source) {
-    item.addEventListener('click', function handleClick() {
-        // event_log.textContent += "click\n";
-        item.setAttribute('style', 'background-color: yellow;');
-    });
-
-    item.addEventListener('dragstart', function dragstart_handler(ev) {
-        // event_log.textContent += "dragStart\n";
-        // Change the source element's background color to signify drag has started
-        item.setAttribute('style', 'background-color: yellow;');
-        ev.dataTransfer.setData("text", ev.target.id);
-    });
 }
 
-for (let item of target) {
-    item.addEventListener('dragenter',  function dragenter_handler(ev) {
-        // event_log.textContent += "dragEnter\n";
-        ev.preventDefault()
-    });
+function set_drag_drop() {
+    const source = document.getElementsByClassName("draggable");
+    const target = document.getElementsByClassName("droppable");
 
-    item.addEventListener('dragleave', function dragleave_handler(ev) {
-        ev.preventDefault()
-        // ev.target.style.border = '2px solid #ccc'
-    });
+    for (let item of source) {
+        item.addEventListener('click', function handleClick() {
+            item.setAttribute('style', 'background-color: yellow;');
+        });
 
-    item.addEventListener('dragover', function dragover_handler(ev) {
-        ev.preventDefault()
-        // ev.target.style.border = '1px solid green'
-    });
+        item.addEventListener('dragstart', function dragstart_handler(ev) {
+            item.setAttribute('style', 'background-color: yellow;');
+            ev.dataTransfer.setData("text", ev.target.id);
+        });
+    }
 
-    item.addEventListener('drop', function drop_handler(ev) {
-        // event_log.textContent += "drop\n";
-        ev.preventDefault()
-        let data = ev.dataTransfer.getData('text')
-        console.log(data)
-        data = data.substring(data.lastIndexOf('/') + 1, data.indexOf('.'))
-        console.log(data)
-        const newElement = document.getElementById(data)
-        const style = getComputedStyle(ev.target)
-        newElement.firstElementChild.setAttribute('height', style.height)
-        newElement.firstElementChild.setAttribute('width', style.width)
+    for (let item of target) {
+        item.addEventListener('dragenter', function dragenter_handler(ev) {
+            ev.preventDefault()
+        });
 
-        newElement.setAttribute('height', style.height)
-        newElement.setAttribute('width', style.width)
+        item.addEventListener('dragleave', function dragleave_handler(ev) {
+            ev.preventDefault()
+        });
 
-        console.log(newElement)
-        ev.target.appendChild(newElement)
-        // ev.target.style.border = 'none'
-        newElement.style.border = 'none'
-        ev.dataTransfer.clearData()
-    });
+        item.addEventListener('dragover', function dragover_handler(ev) {
+            ev.preventDefault()
+        });
+
+        item.addEventListener('drop', function drop_handler(ev) {
+            ev.preventDefault()
+            let data = ev.dataTransfer.getData('text')
+            console.log(data)
+            data = data.substring(data.lastIndexOf('/') + 1, data.indexOf('.'))
+            console.log(data)
+            const newElement = document.getElementById(data)
+            const style = getComputedStyle(ev.target)
+            newElement.firstElementChild.setAttribute('height', style.height)
+            newElement.firstElementChild.setAttribute('width', style.width)
+
+            newElement.setAttribute('height', style.height)
+            newElement.setAttribute('width', style.width)
+
+            console.log(newElement)
+            ev.target.appendChild(newElement)
+            // ev.target.style.border = 'none'
+            newElement.style.border = 'none'
+            ev.dataTransfer.clearData()
+        });
+    }
 }
 
-// Set click event listener on button to reload the example
-const button = document.getElementById("reload");
-button.addEventListener("click", () => {
-    display_team_coin_avg()
-    // document.location.reload();
-});
+const pn = document.getElementById('pn');
+
+function updating_player_card() {
+    const players_vm = document.getElementsByClassName("img-txt-div");
+    for (let item of players_vm) {
+        item.addEventListener('mouseover', function() {
+            console.log(item)
+            console.log(item.firstElementChild)
+            pn.innerHTML = item.firstElementChild.id
+        })
+    }
+}
 
 function get_players_under_each_team() {
     let all_team_holders = document.getElementById('droppable-holder').children;
@@ -144,10 +149,6 @@ function get_latest_changed_players() {
     console.log(hash_of_changes_players)
     return hash_of_changes_players
 }
-
-$(document).ready(function() {
-    document.getElementsByTagName("html")[0].style.visibility = "visible";
-});
 
 const team_points_holders = document.getElementsByClassName('team-points')
 
