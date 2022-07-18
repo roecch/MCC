@@ -11,7 +11,7 @@
 .left {
     left: 0;
     background-color: var(--mainshade);
-    width: 10%;
+    width: 7%;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@
 .right {
     right: 0;
     background-color: var(--mainshade);
-    width: 90%;
+    width: 93%;
     display: flex;
     align-items: center;
     justify-content: center;

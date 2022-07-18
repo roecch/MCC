@@ -47,11 +47,11 @@ function set_drag_drop() {
 
     for (let item of source) {
         item.addEventListener('click', function handleClick() {
-            item.setAttribute('style', 'background-color: yellow;');
+            // item.setAttribute('style', 'background-color: yellow;');
         });
 
         item.addEventListener('dragstart', function dragstart_handler(ev) {
-            item.setAttribute('style', 'background-color: yellow;');
+            // item.setAttribute('style', 'background-color: yellow;');
             ev.dataTransfer.setData("text", ev.target.id);
         });
     }

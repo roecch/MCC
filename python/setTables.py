@@ -8,8 +8,7 @@ def create_table(cur):
     cur.execute('DROP TABLE IF EXISTS MCCDATA')
     createQuery = ['CREATE TABLE IF NOT EXISTS MCCDATA (MCCNUM VARCHAR(20), PLAYER VARCHAR(20), TEAM VARCHAR(20), AR_TIME TIME NULL, AR_PLACE INT NULL'
                    ', BB_KILLS INT NULL, BB_WINS INT NULL, BINGO_FAST VARCHAR(20) NULL, LOCK_BINGO VARCHAR(20) NULL, BM VARCHAR(20) NULL, FR_TIME TIME '
-                   'NULL, FR_PLACE INT NULL, GR1 INT NULL, GR2 INT NULL, GR3 INT NULL, GR4 INT NULL, '
-                   'GR5 INT NULL, GR6 INT NULL, GR7 INT NULL, GR8 INT NULL, GRB INT NULL, HITW1 INT NULL, '
+                   'NULL, FR_PLACE INT NULL, GR VARCHAR(20) NULL, GRB INT NULL, HITW1 INT NULL, '
                    'HITW2 INT NULL, HITW3 INT NULL, PT_RED VARCHAR(20) NULL, PT_ORANGE VARCHAR(20) NULL, '
                    'PT_YELLOW VARCHAR(20) NULL, PT_LIME VARCHAR(20) NULL, PT_GREEN VARCHAR(20) NULL, '
                    'PT_CYAN VARCHAR(20) NULL, PT_AQUA VARCHAR(20) NULL, PT_BLUE VARCHAR(20) NULL, PT_PURPLE '
@@ -46,14 +45,7 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
                      "Build Mart": "BM",
                      "Foot Race - Time": "FR_TIME",
                      "Foot Race - Place": "FR_PLACE",
-                     "Grid Runners - 1": "GR1",
-                     "Grid Runners - 2": "GR2",
-                     "Grid Runners - 3": "GR3",
-                     "Grid Runners - 4": "GR4",
-                     "Grid Runners - 5": "GR5",
-                     "Grid Runners - 6": "GR6",
-                     "Grid Runners - 7": "GR7",
-                     "Grid Runners - 8": "GR8",
+                     "Grid Runners - Place": "GR",
                      "Grid Runners - Bonus": "GRB",
                      "Hole in the Wall - 1": "HITW1",
                      "Hole in the Wall - 2": "HITW2",
