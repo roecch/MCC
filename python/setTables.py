@@ -9,7 +9,7 @@ def create_table(cur):
     createQuery = ['CREATE TABLE IF NOT EXISTS MCCDATA (MCCNUM VARCHAR(20), PLAYER VARCHAR(20), TEAM VARCHAR(20), AR_TIME TIME NULL, AR_PLACE INT NULL'
                    ', BB_KILLS INT NULL, BB_WINS INT NULL, BINGO_FAST VARCHAR(20) NULL, LOCK_BINGO VARCHAR(20) NULL, BM VARCHAR(20) NULL, FR_TIME TIME '
                    'NULL, FR_PLACE INT NULL, GR VARCHAR(20) NULL, GRB INT NULL, HITW1 INT NULL, '
-                   'HITW2 INT NULL, HITW3 INT NULL, PT_RED VARCHAR(20) NULL, PT_ORANGE VARCHAR(20) NULL, '
+                   'HITW2 INT NULL, HITW3 INT NULL, MD_KILLS VARCHAR(20), MD_CRATES VARCHAR(20), PT_RED VARCHAR(20) NULL, PT_ORANGE VARCHAR(20) NULL, '
                    'PT_YELLOW VARCHAR(20) NULL, PT_LIME VARCHAR(20) NULL, PT_GREEN VARCHAR(20) NULL, '
                    'PT_CYAN VARCHAR(20) NULL, PT_AQUA VARCHAR(20) NULL, PT_BLUE VARCHAR(20) NULL, PT_PURPLE '
                    'VARCHAR(20) NULL, PT_PINK VARCHAR(20) NULL, PW_COURSE VARCHAR(20) NULL, RS_KILLS INT NULL, '
@@ -22,7 +22,7 @@ def create_table(cur):
 
 
 def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
-    df = pd.read_csv('../data/MCCFull.csv', header=0, index_col=0)
+    df = pd.read_csv('../data/MCC.csv', header=0, index_col=0)
     df = df.iloc[rowStart:rowEnd, colStart:colEnd]
     print(df)
     header = df.head(0).columns
@@ -50,6 +50,8 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
                      "Hole in the Wall - 1": "HITW1",
                      "Hole in the Wall - 2": "HITW2",
                      "Hole in the Wall - 3": "HITW3",
+                     'Meltdown - Kills' : 'MD_KILLS',
+                     'Meltdown - Crates' : 'MD_CRATES',
                      "Parkour Tag - Red": "PT_RED",
                      "Parkour Tag - Orange": "PT_ORANGE",
                      "Parkour Tag - Yellow": "PT_YELLOW",
@@ -61,6 +63,10 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
                      "Parkour Tag - Purple": "PT_PURPLE",
                      "Parkour Tag - Pink": "PT_PINK",
                      "Parkour Warrior - Course": "PW_COURSE",
+                     "Rocket Spleef Rush - Kills": "RS_KILLS",
+                     "Rocket Spleef Rush - 1": "RS1",
+                     "Rocket Spleef Rush - 2": "RS2",
+                     "Rocket Spleef Rush - 3": "RS3",
                      "Rocket Spleef - Kills": "RS_KILLS",
                      "Rocket Spleef - 1": "RS1",
                      "Rocket Spleef - 2": "RS2",
@@ -99,7 +105,7 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
 
 
 def setAllMCCData(cur):
-    with open('../data/MCCFull.csv') as f:
+    with open('../data/MCC.csv') as f:
         reader = csv.reader(f, delimiter=",")
         games = next(reader)
         players = [row[0] for row in reader]
@@ -112,7 +118,7 @@ def setAllMCCData(cur):
                                 games.index(res[x]), int(games.index(res[x + 1])))
         else:
             set_single_MCC_data(cur, players.index(res[x]), len(players),
-                                games.index(res[x]), len(games))
+                                games.index(res[x]), len(games) - 1)
 
 
 def check_sql_string(sql, values):
