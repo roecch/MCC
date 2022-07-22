@@ -15,10 +15,9 @@ class GameAbstract:
     @abstractmethod
     def calc(self, cur, player: str, mccnum: str, query) -> int:
         player = '"' + player + '"'
-        print(query.replace("player", player))
-        cur.execute(query.replace("player", player))
+        query = query.replace("player", player)
+        cur.execute(query)
         data = cur.fetchall()
-        print(data)
 
         if mccnum == "auto":
             return self.calcAuto(data)

@@ -9,15 +9,22 @@ window.onload = () => {
   updating_player_card()
 };
 
+//document.addEventListener('DOMContentLoaded', (event) => {
+//    set_menu();
+//    set_drag_drop();
+//    updating_player_card();
+//});
+
 function set_menu() {
   for (let [index, value] of playerMap.entries()) {
+    console.log('done')
     let img = document.createElement("img");
     img.src = value.toString();
     img.alt = index + " Icon";
     img.draggable = true;
     img.setAttribute("class", "player")
-    img.setAttribute("height", '50px')
-    img.setAttribute("width", '50px')
+    img.setAttribute("height", '40px')
+    img.setAttribute("width", '40px')
 
     let imgDiv = document.createElement("player-div")
     let text = document.createTextNode(index.toString())
@@ -99,14 +106,12 @@ function updating_player_card() {
   for (let item of players_vm) {
     item.addEventListener('mouseover', function () {
       pn.innerHTML = item.firstElementChild.id
-      console.log('yes')
       $.ajax({
-        type: "POST",
-        url: "../main.py",
+        type: "GET",
+        url: "/retrieve",
+        data: {name: item.firstElementChild.id},
         success: function (data) {
-          if (data.success == true) {
-            console.log('here')
-          }
+          console.log(data)
         },
         error: function () {
           alert('something bad happened');
