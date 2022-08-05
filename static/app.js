@@ -4,9 +4,10 @@ const players_menu = document.getElementById('vertical-menu');
 const playerMap = getPlayerImgMap();
 
 window.onload = () => {
-  set_menu()
-  set_drag_drop()
-  updating_player_card()
+  window.setTimeout(function(){
+    set_menu()
+    set_drag_drop()
+    updating_player_card()}, 500)
 };
 
 //document.addEventListener('DOMContentLoaded', (event) => {
@@ -16,6 +17,7 @@ window.onload = () => {
 //});
 
 function set_menu() {
+  console.log(playerMap.size)
   for (let [index, value] of playerMap.entries()) {
     console.log('done')
     let img = document.createElement("img");
@@ -94,6 +96,9 @@ function set_drag_drop() {
       ev.target.appendChild(newElement)
       // ev.target.style.border = 'none'
       newElement.style.border = 'none'
+
+      update_team_coin_avg()
+
       ev.dataTransfer.clearData()
     });
   }
@@ -112,12 +117,20 @@ function updating_player_card() {
         data: {name: item.firstElementChild.id},
         success: function (data) {
           console.log(data)
+          updating_player_card_helper(data)
         },
         error: function () {
           alert('something bad happened');
         }
       });
     })
+  }
+}
+
+function updating_player_card_helper(data) {
+  let pc_holders = document.getElementsByClassName('pc')
+  for (let x in [1,13]) {
+    pc_holders[x].innerHTML = data[x]
   }
 }
 
@@ -171,7 +184,15 @@ function get_latest_changed_players() {
   return hash_of_changes_players
 }
 
-const team_points_holders = document.getElementsByClassName('team-points')
+function update_team_coin_avg() {
+  let hash = get_latest_changed_players();
+  document.getElementById(hash.keys()[0] + '-team-points').innerHTML +=
+      document.getElementById('avg')
+}
 
-function display_team_coin_avg() {
+function change_team_total_calc(choice) {
+    let players_under_each_team = get_players_under_each_team()
+  for (let players_of_team of players_under_each_team) {
+
+  }
 }

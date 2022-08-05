@@ -24,6 +24,7 @@ const all_players = ['5up', 'antfrost', 'asnazum', 'awesamdude', 'badboyhalo',
 
 function getPlayerImgMap()
 {
+  let start = performance.now()
   let map = new Map();
   fetch("/static/list_of_images.json")
   .then(response => {
@@ -41,5 +42,8 @@ function getPlayerImgMap()
       map.set(line.substr(0, line.indexOf(':')), line.substr(line.indexOf(':') + 1))
     });
   });
+  let end = performance.now()
+
+  console.log("" + (end - start))
   return map;
 }

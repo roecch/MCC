@@ -376,3 +376,24 @@
     width: 240px;
     height: 372px;
 }
+
+.ranking {
+    align-content: center;
+    height: 100%;
+}
+
+.team-placement {
+
+}
+
+.game-icon {
+    background-color: #3e8e41;
+    width: 100px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+#game-choices {
+    align-content: center;
+    height: 100%;
+}

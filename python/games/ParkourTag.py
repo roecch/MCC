@@ -22,13 +22,13 @@ class ParkourTag(SurvivalInterface, KillsInterface):
                            "15-22": 30}
 
     def calc_hunter_round(
-        self,
-        num: int,
-        hunterTeam: str,
-        runnerTeam: str,
-        hunterData: str,
-        killPt: (int, int),
-        huntFaster: int,
+            self,
+            num: int,
+            hunterTeam: str,
+            runnerTeam: str,
+            hunterData: str,
+            killPt: (int, int),
+            huntFaster: int,
     ) -> int:
         runners = self.get_runners(hunterTeam, num, runnerTeam)
         print(runners)
@@ -45,12 +45,12 @@ class ParkourTag(SurvivalInterface, KillsInterface):
         return huntingTotal
 
     def calc_runner_round(
-        self,
-        num: int,
-        hunterTeam: str,
-        runnerTeam: str,
-        runnerData: int,
-        survPt: (int, int)
+            self,
+            num: int,
+            hunterTeam: str,
+            runnerTeam: str,
+            runnerData: int,
+            survPt: (int, int)
     ) -> int:
         runningTotal = survPt[1] if 60 in self.get_runners(hunterTeam, num, runnerTeam) else 0
         runningTotal += (survPt[0] * int(runnerData / 10))
@@ -59,7 +59,8 @@ class ParkourTag(SurvivalInterface, KillsInterface):
 
     def get_runners(self, hunterTeam: str, num: int, runnerTeam: str):
         query = "SELECT PT_hunterTeam FROM mccdata WHERE MCCNUM = 'num' AND TEAM = 'runnerTeam'"
-        query = query.replace("hunterTeam", hunterTeam).replace("num", "MCC" + str(num)).replace("runnerTeam", runnerTeam)
+        query = query.replace("hunterTeam", hunterTeam).replace("num", "MCC" + str(num)).replace("runnerTeam",
+                                                                                                 runnerTeam)
         self.cur.execute("".join(query))
         return sorted([int(i[0][1:]) for i in self.cur.fetchall() if "T" not in i[0]])
 

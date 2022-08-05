@@ -28,17 +28,24 @@ class Player:
         self.name = name
         self.cur = cursor
 
-    @staticmethod
-    def cal_player_avg(self, include_season_one: bool = True) -> int:
+    def cal_player_avg(self, scoring_type: str = 'auto', include_season_one: bool = True) -> int:
         ignore_events = []
         if not include_season_one:
             ignore_events = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-        return 0
+        avg = 0
+        num_of_included_events = 0
+        for x in range(0, 23) not in ignore_events:
+            num_of_included_events += 1
+            avg += self.calc_some_games(self, str(" AND MCCNUM = " + x + ";"), scoring_type)
+        return int(avg / num_of_included_events)
 
     def calc_all_games(self, scoring_type: str = 'auto', ignore_events: [] = []):
         extra_query = ";"
         if ignore_events:
-            extra_query = " AND MCCNUM NOT IN " + map(lambda x: "MCC" + str(x), ignore_events) + ";"
+            extra_query = " AND MCCNUM NOT IN " + str(map(lambda x: "MCC" + str(x), ignore_events)) + ";"
+        return self.calc_some_games(self, extra_query, scoring_type)
+
+    def calc_some_games(self, extra_query, scoring_type):
         list_of_scores = \
             [AceRace.calc(AceRace(), self.cur, self.name, scoring_type, extra_query),
              BattleBox.calc(BattleBox(), self.cur, self.name, scoring_type, extra_query),
