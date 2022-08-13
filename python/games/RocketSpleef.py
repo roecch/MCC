@@ -5,9 +5,8 @@ from python.games.SurvivalInterface import SurvivalInterface
 
 class RocketSpleef(SurvivalInterface, KillsInterface):
     def __init__(self):
-        self.survPts = {"1-19": (4, [100]),
-                        "20-22": (3, [150, 125, 110, 100, 90, 85, 80, 75, 70, 65])}
-        self.killPts = {"1-22": 10}
+        self.survPts = {"1-19": (4, [100])}
+        self.killPts = {"1-19": 10}
 
     def perSurvival(self, game, survPt, finalPt) -> int:
         total = 0
@@ -16,7 +15,6 @@ class RocketSpleef(SurvivalInterface, KillsInterface):
             total += place * survPt
             try:
                 total += finalPt[rnd - 1]
-                # print(finalPt[rnd - 1])
             except IndexError:
                 pass
         return total

@@ -1,0 +1,52 @@
+:root {
+    --lightshade: #E4E6E0;
+    --lightaccent: #96B2AB;
+    --lightaccent2: #B8D4BC;
+    --mainshade: #607980;
+    --darkaccent: #8B8587;
+    --darkshade: #232731;
+}
+
+.body {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0;
+    padding: 0;
+}
+
+.ranking {
+    float:left;
+    align-content: center;
+    height: 100%;
+}
+
+.team-placement {
+    background-color: var(--lightaccent);
+    width: 100px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-icon {
+    background-color: #3e8e41;
+    width: 100px;
+    height: 50px;
+    margin-bottom: 10px;
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-choices {
+    float:right;
+    align-content: center;
+    height: 100%;
+}

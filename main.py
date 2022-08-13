@@ -1,5 +1,5 @@
 import mysql
-from flask import Flask, redirect, url_for, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_mysqldb import MySQL
 from python.Player import Player
 
@@ -18,13 +18,25 @@ def welcome():
     return render_template('index.html')
 
 
-@app.route('/retrieve', methods=['GET', 'POST'])
+@app.route('/retrieve', methods=['GET'])
 def retrieve():
     name = request.args['name']
-    if request.method == 'GET':
+    if name and request.method == 'GET':
         cursor = mysql.connection.cursor()
-        d = Player(name, cursor).calc_all_games()
+        p = Player(name, cursor)
+        d = p.calc_cur_games()
+        d.append(p.cal_player_avg())
         return jsonify(d)
+
+
+@app.route('/event', methods=['GET', 'POST'])
+def event():
+    return render_template('event.html')
+
+
+@app.route('/get_data')
+def get_data():
+    return 0
 
 
 if __name__ == '__main__':
