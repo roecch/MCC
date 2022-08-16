@@ -6,18 +6,22 @@ import mysql.connector
 
 def create_table(cur):
     cur.execute('DROP TABLE IF EXISTS MCCDATA')
-    createQuery = ['CREATE TABLE IF NOT EXISTS MCCDATA (MCCNUM VARCHAR(20), PLAYER VARCHAR(20), TEAM VARCHAR(20), AR_TIME TIME NULL, AR_PLACE INT NULL'
-                   ', BB_KILLS INT NULL, BB_WINS INT NULL, BINGO_FAST VARCHAR(20) NULL, LOCK_BINGO VARCHAR(20) NULL, BM VARCHAR(20) NULL, FR_TIME TIME '
+    createQuery = ['CREATE TABLE IF NOT EXISTS MCCDATA (MCCNUM VARCHAR(20), PLAYER VARCHAR(20), TEAM VARCHAR(20), '
+                   'AR_TIME TIME NULL, AR_PLACE INT NULL , BB_KILLS INT NULL, BB_WINS INT NULL, BINGO_FAST VARCHAR('
+                   '20) NULL, LOCK_BINGO VARCHAR(20) NULL, BM VARCHAR(20) NULL, FR_TIME TIME '
                    'NULL, FR_PLACE INT NULL, GR VARCHAR(20) NULL, GRB INT NULL, HITW1 INT NULL, '
-                   'HITW2 INT NULL, HITW3 INT NULL, MD_KILLS VARCHAR(20), MD_CRATES VARCHAR(20), PT_RED VARCHAR(20) NULL, PT_ORANGE VARCHAR(20) NULL, '
+                   'HITW2 INT NULL, HITW3 INT NULL, MD_KILLS INT NULL, MD_CRATES INT NULL, MD_SURVIVAL '
+                   'INT NULL, PT_RED VARCHAR(20) NULL, PT_ORANGE VARCHAR(20) NULL, '
                    'PT_YELLOW VARCHAR(20) NULL, PT_LIME VARCHAR(20) NULL, PT_GREEN VARCHAR(20) NULL, '
                    'PT_CYAN VARCHAR(20) NULL, PT_AQUA VARCHAR(20) NULL, PT_BLUE VARCHAR(20) NULL, PT_PURPLE '
-                   'VARCHAR(20) NULL, PT_PINK VARCHAR(20) NULL, PW_COURSE VARCHAR(20) NULL, RS_KILLS INT NULL, '
-                   'RS1 INT NULL, RS2 INT NULL, RS3 INT NULL, SB_KILLS INT NULL, SB_SURVIVAL1 TIME NULL, '
-                   'SB_SURVIVAL2 TIME NULL, SB_SURVIVAL3 TIME NULL, SOT VARCHAR( 20) NULL, '
+                   'VARCHAR(20) NULL, PT_PINK VARCHAR(20) NULL, PW_COURSE VARCHAR(20) NULL, RSR_KILLS INT NULL, '
+                   'RSR1 INT NULL, RSR2 INT NULL, RSR3 INT NULL, RS_KILLS INT NULL, '
+                   'RS1 INT NULL, RS2 INT NULL, RS3 INT NULL, SB_KILLS INT NULL, SB_SURVIVAL1 INT NULL, '
+                   'SB_SURVIVAL2 INT NULL, SB_SURVIVAL3 INT NULL, SOT INT NULL, '
                    'SKYB_KILLS VARCHAR(20) NULL, SKYB_SURVIVAL VARCHAR(20) NULL, SG_KILLS INT NULL, '
-                   'SG_SURVIVAL INT NULL, TGTTOS1 VARCHAR(20) NULL, TGTTOS2 VARCHAR(20) NULL, TGTTOS3 VARCHAR( '
-                   '20), TGTTOS4 VARCHAR(20) NULL, TGTTOS5 VARCHAR(20) NULL, TGTTOS6 VARCHAR(20) NULL);']
+                   'SG_SURVIVAL INT NULL, SG_CRATES INT NULL, TGTTOS1 VARCHAR(20) NULL, TGTTOS2 VARCHAR(20) NULL, '
+                   'TGTTOS3 VARCHAR(20), TGTTOS4 VARCHAR(20) NULL, TGTTOS5 VARCHAR(20) NULL, TGTTOS6 VARCHAR(20) NULL, '
+                   'TGTTOS_BONUS VARCHAR(20) NULL);']
     cur.execute("".join(createQuery))
 
 
@@ -50,8 +54,9 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
                      "Hole in the Wall - 1": "HITW1",
                      "Hole in the Wall - 2": "HITW2",
                      "Hole in the Wall - 3": "HITW3",
-                     'Meltdown - Kills' : 'MD_KILLS',
-                     'Meltdown - Crates' : 'MD_CRATES',
+                     'Meltdown - Kills': 'MD_KILLS',
+                     'Meltdown - Crates': 'MD_CRATES',
+                     'Meltdown - Survival': 'MD_SURVIVAL',
                      "Parkour Tag - Red": "PT_RED",
                      "Parkour Tag - Orange": "PT_ORANGE",
                      "Parkour Tag - Yellow": "PT_YELLOW",
@@ -63,10 +68,10 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
                      "Parkour Tag - Purple": "PT_PURPLE",
                      "Parkour Tag - Pink": "PT_PINK",
                      "Parkour Warrior - Course": "PW_COURSE",
-                     "Rocket Spleef Rush - Kills": "RS_KILLS",
-                     "Rocket Spleef Rush - 1": "RS1",
-                     "Rocket Spleef Rush - 2": "RS2",
-                     "Rocket Spleef Rush - 3": "RS3",
+                     "Rocket Spleef Rush - Kills": "RSR_KILLS",
+                     "Rocket Spleef Rush - 1": "RSR1",
+                     "Rocket Spleef Rush - 2": "RSR2",
+                     "Rocket Spleef Rush - 3": "RSR3",
                      "Rocket Spleef - Kills": "RS_KILLS",
                      "Rocket Spleef - 1": "RS1",
                      "Rocket Spleef - 2": "RS2",
@@ -80,12 +85,14 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
                      "Skyblockle - Survival": "SKYB_SURVIVAL",
                      "SG - Kills": "SG_KILLS",
                      "SG - Survival": "SG_SURVIVAL",
+                     "SG - Crates": "SG_CRATES",
                      "TGTTOS1": "TGTTOS1",
                      "TGTTOS2": "TGTTOS2",
                      "TGTTOS3": "TGTTOS3",
                      "TGTTOS4": "TGTTOS4",
                      "TGTTOS5": "TGTTOS5",
-                     "TGTTOS6": "TGTTOS6"}
+                     "TGTTOS6": "TGTTOS6",
+                     "TGTTOS - Bonus": "TGTTOS_BONUS"}
         if game[0:3] == "MCC":
             NumAndGames.append("MCCNUM")
             NumAndGames.append("PLAYER")
@@ -99,7 +106,8 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
         row = list(row)
         print(len(row))
         row.pop(0)
-        createQuery = ['INSERT INTO ', 'MCCDATA (', ', '.join(NumAndGames), ') Values (', "'", header[0], "', '", players[i] ,"'", ',%s)']
+        createQuery = ['INSERT INTO ', 'MCCDATA (', ', '.join(NumAndGames), ') Values (', "'", header[0], "', '",
+                       players[i], "'", ',%s)']
         query = "".join(createQuery) % ','.join('?' * len(row))
         cur.execute(check_sql_string(query, row).replace("nan", "NULL"))
 

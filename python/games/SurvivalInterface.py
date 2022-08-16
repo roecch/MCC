@@ -1,9 +1,9 @@
-# from zope.interface import interfacemethod
+from zope.interface import interfacemethod
 
 from python.games.GameInterface import GameInterface
 
 
 class SurvivalInterface(GameInterface):
-    # @interfacemethod
+    @interfacemethod
     def perSurvival(self):
         pass

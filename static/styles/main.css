@@ -7,6 +7,11 @@
     --darkshade: #232731;
 }
 
+.body{
+    margin: 0;
+    padding: 0;
+}
+
 /* Control the left side */
 .left {
     left: 0;
@@ -21,6 +26,7 @@
 /* Control the right side */
 .right {
     right: 0;
+    padding: 0;
     background-color: var(--mainshade);
     width: 93%;
     display: flex;
@@ -97,12 +103,12 @@
 
 #droppable-aqua-holder {
     background-image: url("../images/team/Aqua.jpg");
-    grid-area: 2 / 4 / 3 / 5;
+    grid-area: 3 / 1 / 4 / 2;
 }
 
 #droppable-cyan-holder {
     background-image: url("../images/team/Cyan.jpg");
-    grid-area: 3 / 1 / 4 / 2;
+    grid-area: 2 / 4 / 3 / 5;
 }
 
 #droppable-blue-holder {
@@ -230,12 +236,12 @@
     border-color: #32CD32;
 }
 
-.drop-aqua {
-    border-color: #00FFFF;
+.drop-cyan {
+    border-color: #008B8B;
 }
 
-.drop-cyan {
-    border-color: #008b8b;
+.drop-aqua {
+    border-color: #00FFFF;
 }
 
 .drop-blue {
@@ -263,6 +269,40 @@
     border: 1px solid #fc0;
 }
 
+/*#arrow {*/
+/*    position: absolute;*/
+/*    box-sizing: border-box;*/
+/*    height: 5vw;*/
+/*    width: 5vw;*/
+/*    border-top: 3vh solid transparent;*/
+/*    border-bottom: 3vh solid transparent;*/
+/*    border-left: 4vh solid white;*/
+/*    left: 90%*/
+/*}*/
+
+/*#arrow:hover {*/
+/*    border-left-color: wheat;*/
+/*}*/
+
+#arrow-holder {
+    transform: translateX(200%);
+}
+
+#arrow {
+    box-sizing: border-box;
+    height: 5vw;
+    width: 5vw;
+    border-style: solid;
+    border-color: white;
+    border-width: 0px 1px 1px 0px;
+    transform: rotate(-45deg);
+    transition: border-width 150ms ease-in-out;
+}
+
+#arrow:hover {
+    border-width: 0px 10px 10px 0px;
+}
+
 .player-card {
     position: fixed;
     bottom: 0; /* <--- set to zero, 1em = the inherited font size, which will offset it */
@@ -280,6 +320,8 @@
     grid-template-rows: repeat(8, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+    width: 480px;
+    height: 480px;
 }
 
 .pc {
@@ -336,7 +378,7 @@
 }
 
 #sot {
-    grid-area: 5 / 4 / 6 / 5;
+    grid-area: 7 / 3 / 8 / 4;
     height: 60px;
     width: 120px;
 }
@@ -354,13 +396,13 @@
 }
 
 #tgt {
-    grid-area: 7 / 3 / 8 / 4;
+    grid-area: 7 / 4 / 8 / 5;
     height: 60px;
     width: 120px;
 }
 
 #rsr {
-    grid-area: 7 / 4 / 8 / 5;
+    grid-area: 5 / 4 / 6 / 5;
     height: 60px;
     width: 120px;
 }
@@ -375,25 +417,4 @@
     grid-area: 2 / 1 / 8 / 3;
     width: 240px;
     height: 372px;
-}
-
-.ranking {
-    align-content: center;
-    height: 100%;
-}
-
-.team-placement {
-
-}
-
-.game-icon {
-    background-color: #3e8e41;
-    width: 100px;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-#game-choices {
-    align-content: center;
-    height: 100%;
 }

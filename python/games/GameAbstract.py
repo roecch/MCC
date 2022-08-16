@@ -42,4 +42,4 @@ class GameAbstract:
             except Exception:
                 if int(key) == int(num):
                     return key
-        return ArithmeticError(num + " " + str(keys))
+        raise ArithmeticError(num + " " + str(keys))

@@ -1,18 +1,5 @@
 let games = ['AR', 'BB', 'BM', 'GR', 'HITW', 'MD', 'PT', 'SOT', 'SB', 'SG', 'TGTTOS', 'RSR']
 
-//let teamsJson = "[
-//        + "{'color':'red', 'players':['Purpled','CaptainPuffy','WilburSoot','Ranboo']},"
-//        + "{'color':'orange', 'players':['HBomb94','Tubbo','TommyInnit', 'JackManifold']},"
-//        + "{'color':'yellow', 'players':['Dream','BadBoyHalo','Skeppy','GeorgeNotFound']},"
-//        + "{'color':'lime', 'players':['Krtzyy','Shubble','Smajor','Seapeekay']},"
-//        + "{'color':'green', 'players':['5up','TapL','TheOrionSound','GeminiTay']},"
-//        + "{'color':'cyan', 'players':['Hannahxxrose','jojosolos','Aimsey','PearlescentMoon']},"
-//        + "{'color':'aqua', 'players':['Fruitberries','Smallishbeans','Cubfan','GoodTimesWithScar']},"
-//        + "{'color':'blue', 'players':['Sapnap','Sylvee','FoolishGames','GeeNelly']},"
-//        + "{'color':'purple', 'players':['Illumina','RyguyRocky','Michealmcchill','Krinios']},"
-//        + "{'color':'pink', 'players':['Philza','InTheLittleWood','CaptainSparklez','AntVenom']},"
-//       ]";
-
 let testTeamsJson = [
     {"color": "red", 'game': 'AR', 'pts': 10},
     {"color": "red", 'game': 'BB', 'pts': 20},
@@ -96,9 +83,14 @@ let testTeamsJson = [
     {"color": "pink", 'game': 'SG', 'pts': 97}
 ];
 
+let teams;
+
 window.onload = () => {
+     teams = { ...sessionStorage};
+     console.log(teams)
     make_graph(['AR', 'BB', 'BM', 'GR', 'HITW', 'PT', 'SOT', 'SG'],)
 };
+
 
 function make_graph(eight_games) {
     let margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -135,13 +127,10 @@ function make_graph(eight_games) {
 
     var sumstat = d3.group(testTeamsJson, d => d.color)
 
-    // color palette
-    var res = testTeamsJson.map(function (d) {
-        return d.color
-    }) // list of group names
-    console.log(res)
+
+    // list of group names
     var color = d3.scaleOrdinal()
-        .domain(res)
+        .domain(sumstat.keys())
         .range(['#FF0000', '#FFA500', '#FFFF00', '#00FF55', '#32CD32', '#00FFFF', '#008B8B', '#0000FF', '#AA00FF', '#FF69B4'])
 
 

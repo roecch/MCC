@@ -42,8 +42,5 @@ function getPlayerImgMap()
       map.set(line.substr(0, line.indexOf(':')), line.substr(line.indexOf(':') + 1))
     });
   });
-  let end = performance.now()
-
-  console.log("" + (end - start))
   return map;
 }

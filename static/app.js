@@ -1,24 +1,20 @@
 'use strict'
 
 const players_menu = document.getElementById('vertical-menu');
-const playerMap = getPlayerImgMap();
+const player_map = getPlayerImgMap();
 
 window.onload = () => {
     window.setTimeout(function () {
         set_menu()
         set_drag_drop()
         updating_player_card()
-    }, 500)
+    }, 1)
 };
 
-const btn = document.getElementById('arrow')
-btn.addEventListener('click', function handleClick() {
-    save_teams()
-});
 
 function set_menu() {
-    console.log(playerMap.size)
-    for (let [index, value] of playerMap.entries()) {
+    console.log(player_map.size)
+    for (let [index, value] of player_map.entries()) {
         console.log('done')
         let img = document.createElement("img");
         img.src = value.toString();
@@ -76,9 +72,7 @@ function set_drag_drop() {
         item.addEventListener('drop', function drop_handler(ev) {
             ev.preventDefault()
             let data = ev.dataTransfer.getData('text')
-            console.log(data)
             data = data.substring(data.lastIndexOf('/') + 1, data.lastIndexOf('.'))
-            console.log(data)
             const newElement = document.getElementById(data)
             const style = getComputedStyle(ev.target)
             newElement.firstElementChild.setAttribute('height', style.height)
@@ -87,11 +81,10 @@ function set_drag_drop() {
             newElement.setAttribute('height', style.height)
             newElement.setAttribute('width', style.width)
 
-            console.log(newElement)
             ev.target.appendChild(newElement)
             newElement.style.border = 'none'
 
-            update_team_coin_avg()
+            update_team_coins()
 
             ev.dataTransfer.clearData()
         });
@@ -104,8 +97,8 @@ function updating_player_card() {
     const players_vm = document.getElementsByClassName("img-txt-div");
     for (let item of players_vm) {
         item.addEventListener('mouseover', function () {
+            // window.setTimeout(function () {
             if (pn.innerHTML !== item.firstElementChild.id && item.firstElementChild.id !== '') {
-                let skin = document.getElementById('skin')
                 let img = document.createElement("img");
                 img.id = 'skinImgDiv'
                 img.src = "https://mc-heads.net/body/" + item.firstElementChild.id + "/right";
@@ -126,9 +119,8 @@ function updating_player_card() {
                     }
                 });
             }
+            // }, 500)
         })
-        item.addEventListener('mousemove', function(){console.log('here')})
-        item.addEventListener('mouseleave', function(){console.log('here')})
     }
 }
 
@@ -137,7 +129,7 @@ function updating_player_card_helper(data) {
     console.log(pc_holders)
     Array.from(pc_holders).slice(1, -1).forEach(function (item, index) {
         item.innerHTML = data[index]
-        if (item.id == 'avg') {
+        if (item.id === 'avg') {
             return data[index]
         }
     });
@@ -164,12 +156,17 @@ function get_players_under_each_team() {
     return players_under_each_team
 }
 
+document.getElementById('arrow').addEventListener('click', function() {
+    save_teams()
+    location.href = "event";
+})
+
 function save_teams() {
     let teams = get_players_under_each_team();
-    console.log(teams)
     for (let key in teams) {
         window.sessionStorage.setItem(key, teams[key])
     }
+    console.log({...sessionStorage})
 }
 
 let players_by_team;
@@ -180,7 +177,6 @@ function get_latest_changed_players() {
     let hash_of_changes_players = [];
 
     for (let key in players_by_team) {
-        console.log(key)
         let current_team_state = players_by_team[key]
         let prev_team_state;
         try {
@@ -195,14 +191,16 @@ function get_latest_changed_players() {
                 (index) => current_team_state.indexOf(index))
         }
     }
-    console.log(hash_of_changes_players)
     return hash_of_changes_players
 }
 
-function update_team_coin_avg() {
-    // let hash = get_latest_changed_players();
-    // document.getElementById(hash.keys()[0] + '-team-points').innerHTML +=
-    //     document.getElementById('avg')
+function update_team_coins() {
+    let hash = get_latest_changed_players();
+    let key = Object.keys(hash).filter(key => hash[key].length)[0]
+
+    document.getElementById(key + '-team-points').innerHTML =
+        (parseInt(document.getElementById(key + '-team-points').innerHTML)
+            + parseInt(document.getElementById('avg').innerHTML)).toString()
 }
 
 function change_team_total_calc(choice) {

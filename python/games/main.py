@@ -2,10 +2,12 @@ import mysql.connector
 
 from python.games.AceRace import AceRace
 from python.games.BattleBox import BattleBox
+from python.games.BingoButFast import BingoButFast
 from python.games.GridRunners import GridRunners
 from python.games.HITW import HITW
 from python.games.ParkourTag import ParkourTag
-from python.games.RocketSpleef import RocketSpleef
+from python.games.ParkourWarrior import ParkourWarrior
+from python.games.RocketSpleefRush import RocketSpleefRush
 from python.games.SurvivalGames import SurvivalGames
 from python.games.TGTTOS import TGTTOS
 
@@ -28,7 +30,9 @@ def main():
     # GridRunners.calc(GridRunners(),cur,"dream","auto")
     # ParkourTag.calc(ParkourTag(cur),cur,"dream","auto")
     # ParkourTag.calc_runner_round(ParkourTag(cur), 14, 'Red', 'GREEN', 19)
-    TGTTOS.calc(TGTTOS(cur), cur, "dream", "auto")
+    # TGTTOS.calc(TGTTOS(cur), cur, "dream", "auto")
+    # ParkourWarrior.calc(ParkourWarrior(), cur, 'dream', 'auto')
+    BingoButFast.calc(BingoButFast(), cur, 'dream', 'auto', ';')
 
     try:
         for x in cur:

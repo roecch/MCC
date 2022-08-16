@@ -22,16 +22,16 @@
     </div>
     <div class="right">
         <div id="builder">
-            <div id="checkbox-holders">
-                <input type="checkbox" id="season-one-checkbox" name="season-one-checkbox" value="S1">
-                <label for="season-one-checkbox"> Season 1 </label><br>
-                <input type="checkbox" id="season-two-checkbox" name="season-two-checkbox" value="S2">
-                <label for="season-two-checkbox"> Season 2</label><br>
-                <input type="checkbox" id="non-canon-checkbox" name="non-canon-checkbox" value="noncan">
-                <label for="non-canon-checkbox"> Non-Canon</label><br>
-            </div>
+<!--            <div id="checkbox-holders">-->
+<!--                <input type="checkbox" id="season-one-checkbox" name="season-one-checkbox" value="S1">-->
+<!--                <label for="season-one-checkbox"> Season 1 </label><br>-->
+<!--                <input type="checkbox" id="season-two-checkbox" name="season-two-checkbox" value="S2">-->
+<!--                <label for="season-two-checkbox"> Season 2</label><br>-->
+<!--                <input type="checkbox" id="non-canon-checkbox" name="non-canon-checkbox" value="noncan">-->
+<!--                <label for="non-canon-checkbox"> Non-Canon</label><br>-->
+<!--            </div>-->
 
-            <div class="all-team-holders">
+            <div class="all-team-holders" id="all-team-holders">
                 <div id="droppable-red-holder" class="team-holder">
                     <div>
                         <div id="holder-red-1" class="droppable drop-red"></div>
@@ -39,7 +39,7 @@
                         <div id="holder-red-3" class="droppable drop-red"></div>
                         <div id="holder-red-4" class="droppable drop-red"></div>
                     </div>
-                    <div id="red-team-points" class="team-points"> here</div>
+                    <div id="red-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-orange-holder" class="team-holder">
                     <div>
@@ -48,7 +48,7 @@
                         <div id="holder-orange-3" class="droppable drop-orange"></div>
                         <div id="holder-orange-4" class="droppable drop-orange"></div>
                     </div>
-                    <div id="orange-team-points" class="team-points"> here</div>
+                    <div id="orange-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-yellow-holder" class="team-holder">
                     <div>
@@ -57,7 +57,7 @@
                         <div id="holder-yellow-3" class="droppable drop-yellow"></div>
                         <div id="holder-yellow-4" class="droppable drop-yellow"></div>
                     </div>
-                    <div id="yellow-team-points" class="team-points"> here</div>
+                    <div id="yellow-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-lime-holder" class="team-holder">
                     <div>
@@ -66,7 +66,7 @@
                         <div id="holder-lime-3" class="droppable drop-lime"></div>
                         <div id="holder-lime-4" class="droppable drop-lime"></div>
                     </div>
-                    <div id="lime-team-points" class="team-points"> here</div>
+                    <div id="lime-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-green-holder" class="team-holder">
                     <div>
@@ -75,7 +75,7 @@
                         <div id="holder-green-3" class="droppable drop-green"></div>
                         <div id="holder-green-4" class="droppable drop-green"></div>
                     </div>
-                    <div id="green-team-points" class="team-points"> here</div>
+                    <div id="green-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-aqua-holder" class="team-holder">
                     <div>
@@ -84,7 +84,7 @@
                         <div id="holder-aqua-3" class="droppable drop-aqua"></div>
                         <div id="holder-aqua-4" class="droppable drop-aqua"></div>
                     </div>
-                    <div id="aqua-team-points" class="team-points"> here</div>
+                    <div id="aqua-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-cyan-holder" class="team-holder">
                     <div>
@@ -93,7 +93,7 @@
                         <div id="holder-cyan-3" class="droppable drop-cyan"></div>
                         <div id="holder-cyan-4" class="droppable drop-cyan"></div>
                     </div>
-                    <div id="cyan-team-points" class="team-points"> here</div>
+                    <div id="cyan-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-blue-holder" class="team-holder">
                     <div>
@@ -102,7 +102,7 @@
                         <div id="holder-blue-3" class="droppable drop-blue"></div>
                         <div id="holder-blue-4" class="droppable drop-blue"></div>
                     </div>
-                    <div id="blue-team-points" class="team-points"> here</div>
+                    <div id="blue-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-purple-holder" class="team-holder">
                     <div>
@@ -111,7 +111,7 @@
                         <div id="holder-purple-3" class="droppable drop-purple"></div>
                         <div id="holder-purple-4" class="droppable drop-purple"></div>
                     </div>
-                    <div id="purple-team-points" class="team-points"> here</div>
+                    <div id="purple-team-points" class="team-points">0</div>
                 </div>
                 <div id="droppable-pink-holder" class="team-holder">
                     <div>
@@ -120,9 +120,12 @@
                         <div id="holder-pink-3" class="droppable drop-pink"></div>
                         <div id="holder-pink-4" class="droppable drop-pink"></div>
                     </div>
-                    <div id="pink-team-points" class="team-points"> here</div>
+                    <div id="pink-team-points" class="team-points">0</div>
                 </div>
             </div>
+        </div>
+        <div id="arrow-holder">
+                <div id="arrow" href="event" onclick="save_teams()"></div>
         </div>
     </div>
     <div class="player-card">
@@ -141,7 +144,7 @@
             <div id="tgt" class="pc"> tgt </div>
             <div id="rsr" class="pc"> rsr </div>
             <div id="avg" class="pc"> avg </div>
-            <div id="skin" class="pc"> skin </div>
+            <div id="skin" class="pc"> <div id="skinImgDiv"></div> </div>
         </div>
     </div>
 </div>

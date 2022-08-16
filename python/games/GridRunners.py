@@ -1,19 +1,54 @@
 from python.games.GameInterface import GameInterface
 from python.games.GameAbstract import GameAbstract
+from python.constants import cur_latest_event
 
 
 class GridRunners(GameInterface):
     def __init__(self):
-        self.startingPts = {"16": 150,
-                            "17-20": 100,
-                            "21-22": 175}
-        self.decreasePts = {"16": 15,
-                            "17-20": 10,
-                            "21-22": 17}
-        self.finBonus = {"16": [650, 585, 520, 455, 390, 325, 260, 195, 130, 65],
-                         "17-20": [1050, 945, 840, 735, 630, 525, 420, 315, 210, 105],
-                         "21-22": [375, 340, 305, 270, 235, 200, 165, 130, 95, 60]}
+        self.starting = {"16": (150, 15),
+                         "17-20": (100, 10),
+                         "21-" + cur_latest_event: (175, 17)}
+        self.finBonus = {"16": (650, 65),
+                         "17-20": (1050, 105),
+                         "21-" + cur_latest_event: (375, 35)}
+
+    @staticmethod
+    def calcRounds(data, strtPts):
+        total = 0
+        for room in data.split("-"):
+            total += strtPts[0] - strtPts[1] * (int(float(room)) - 1)
+        return total
+
+    @staticmethod
+    def calcBonus(data, fbPts):
+        return fbPts[0] - fbPts[1] * (int(float(data)) - 1)
+
+    def calcAuto(self, data):
+        total = 0
+        for game in data:
+            num = game[0][3:]
+            total += self.calcRounds(game[1],
+                                     self.starting[GameAbstract.getKeyFromNum(self, num, self.starting.keys())]) + \
+                     self.calcBonus(game[-1],
+                                    self.finBonus[GameAbstract.getKeyFromNum(self, num, self.finBonus.keys())])
+        return total
+
+    def calcNew(self, data):
+        total = 0
+        startingPts = self.starting[list(self.starting.keys())[len(self.starting.keys()) - 1]]
+        finBonusPts = self.finBonus[list(self.finBonus.keys())[len(self.finBonus.keys()) - 1]]
+        for game in data:
+            total += self.calcRounds(game[1], startingPts) + self.calcBonus(game[-1], finBonusPts)
+        return total
+
+    def calcByOne(self, data, num: int):
+        total = 0
+        startingPts = self.starting[GameAbstract.getKeyFromNum(self, num, self.starting.keys())]
+        finBonusPts = self.finBonus[GameAbstract.getKeyFromNum(self, num, self.finBonus.keys())]
+        for game in data:
+            total += self.calcRounds(game[1], startingPts) + self.calcBonus(game[-1], finBonusPts)
+        return total
 
     def calc(self, cur, player: str, scoring_type: str, extra_query: str) -> int:
-        query = "SELECT MCCNUM, GR1, GR2, GR3, GR4, GR5, GR5, GR6, GR7, GR8, GRB FROM MCCDATA WHERE AR_PLACE IS NOT NULL AND PLAYER = player" + extra_query
-        GameAbstract.calc(self, cur, player, scoring_type, query)
+        query = "SELECT MCCNUM, GR, GRB FROM MCCDATA WHERE GR IS NOT NULL AND PLAYER = player" + extra_query
+        return GameAbstract.calc(self, cur, player, scoring_type, query)

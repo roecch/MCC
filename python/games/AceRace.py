@@ -1,17 +1,18 @@
 from python.games.GameAbstract import GameAbstract
 from python.games.RaceInterface import RaceInterface
+from python.constants import cur_latest_event
 
 
 class AceRace(RaceInterface):
     def __init__(self):
         # change to make starting point and desc pts a tuple
         self.startingPts = {"7-14": 500,
-                            "15-22": 400}
+                            "15-" + cur_latest_event: 400}
         self.decreasePts = {"7-14": 12.5,
-                            "15-22": 10.0}
+                            "15-" + cur_latest_event: 10.0}
         self.bonus = {"7-14": [],
                       "15": [400, 250, 175, 100, 50, 25],
-                      "16-22": [300, 240, 180, 120, 60, 15]}
+                      "16-" + cur_latest_event: [300, 240, 180, 120, 60, 15]}
 
     def placementPts(self, strtPt, decsPt, bonPt, placement) -> int:
         total = 0
@@ -20,16 +21,15 @@ class AceRace(RaceInterface):
             total += bonPt[placement - 1]
         except IndexError:
             pass
-        print(total)
         return total
 
     def calcAuto(self, data):
         total = 0
         for game in data:
             num = game[0][3:]
-            total += self.placementPts(self.startingPts[GameAbstract.getKeyFromNum(self, num, self.startingPts.keys())]
-                                       , self.decreasePts[GameAbstract.getKeyFromNum(self, num, self.decreasePts.keys())]
-                                       , self.bonus[GameAbstract.getKeyFromNum(self, num, self.bonus.keys())], game[1])
+            total += self.placementPts(self.startingPts[GameAbstract.getKeyFromNum(self, num, self.startingPts.keys())],
+                                       self.decreasePts[GameAbstract.getKeyFromNum(self, num, self.decreasePts.keys())],
+                                       self.bonus[GameAbstract.getKeyFromNum(self, num, self.bonus.keys())], game[1])
         return total
 
     def calcNew(self, data):

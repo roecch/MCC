@@ -1,6 +1,7 @@
 from python.games.GameAbstract import GameAbstract
 from python.games.KillsInterface import KillsInterface
 from python.games.SurvivalInterface import SurvivalInterface
+from python.constants import cur_latest_event, team_colors
 
 
 class ParkourTag(SurvivalInterface, KillsInterface):
@@ -9,17 +10,17 @@ class ParkourTag(SurvivalInterface, KillsInterface):
         # mcc: pts every 10 sec, shared with runners if ONE person lasts 60
         self.survPts = {"12-13": (10, 30),
                         "14": (10, 10),
-                        "15-22": (2, 20)}
+                        "15-" + cur_latest_event: (2, 20)}
         # mcc: pts for tagging one player (decreases), tag all
         # mcc 15 tag all stays same
         # mcc 16 tag all decreases
         self.killPts = {"12-14": (8, 0, 0),
                         "15": (6, 20, 0),
-                        "16-22": (6, 42, 7)}
+                        "16-" + cur_latest_event: (6, 42, 7)}
         # 12-14 only hunter
         # others all
         self.huntFaster = {"12-14": 25,
-                           "15-22": 30}
+                           "15-" + cur_latest_event: 30}
 
     def calc_hunter_round(
             self,
@@ -31,7 +32,6 @@ class ParkourTag(SurvivalInterface, KillsInterface):
             huntFaster: int,
     ) -> int:
         runners = self.get_runners(hunterTeam, num, runnerTeam)
-        print(runners)
         huntingTotal = 0
         if len(runners) == 3:
             huntingTotal += killPt[1] - killPt[2] * int(runners[-1] / 10)
@@ -41,7 +41,6 @@ class ParkourTag(SurvivalInterface, KillsInterface):
         for runner in runners:
             huntingTotal += killPt[0] - int(runner / 10)
 
-        print(huntingTotal)
         return huntingTotal
 
     def calc_runner_round(
@@ -54,11 +53,11 @@ class ParkourTag(SurvivalInterface, KillsInterface):
     ) -> int:
         runningTotal = survPt[1] if 60 in self.get_runners(hunterTeam, num, runnerTeam) else 0
         runningTotal += (survPt[0] * int(runnerData / 10))
-        print(runningTotal)
         return runningTotal
 
     def get_runners(self, hunterTeam: str, num: int, runnerTeam: str):
-        query = "SELECT PT_hunterTeam FROM mccdata WHERE MCCNUM = 'num' AND TEAM = 'runnerTeam'"
+        query = "SELECT PT_hunterTeam FROM mccdata WHERE MCCNUM = 'num' AND TEAM = 'runnerTeam' AND " \
+                "PT_hunterTeam IS NOT NULL"
         query = query.replace("hunterTeam", hunterTeam).replace("num", "MCC" + str(num)).replace("runnerTeam",
                                                                                                  runnerTeam)
         self.cur.execute("".join(query))
@@ -66,10 +65,9 @@ class ParkourTag(SurvivalInterface, KillsInterface):
 
     def calcCompleteGame(self, num, team, dataOf10Rounds, survPt, killPt, huntFasterPt):
         total = 0
-        colors = ["Red", "Orange", "Yellow", "Lime", "Green", "Cyan", "Aqua", "Blue", "Purple", "Pink"]
+        colors = team_colors
         for x in range(len(colors)):
             sing_round = dataOf10Rounds[x]
-            print(sing_round)
             if sing_round is None:
                 continue
             if sing_round[0] == "T":  # Hunter
@@ -78,7 +76,6 @@ class ParkourTag(SurvivalInterface, KillsInterface):
                 total += self.calc_runner_round(num, colors[x], team, int(sing_round[1:]), survPt)
             else:
                 raise Exception("PT Data Error")
-        print(total)
         return total
 
     def calcAuto(self, data):
@@ -89,7 +86,6 @@ class ParkourTag(SurvivalInterface, KillsInterface):
             killPt = self.killPts[GameAbstract.getKeyFromNum(self, num, self.killPts.keys())]
             huntFasterPt = self.huntFaster[GameAbstract.getKeyFromNum(self, num, self.huntFaster.keys())]
             total += self.calcCompleteGame(num, game[1], game[2:], survPt, killPt, huntFasterPt)
-        print(total)
         return total
 
     def calcNew(self, data):
@@ -100,7 +96,6 @@ class ParkourTag(SurvivalInterface, KillsInterface):
         for game in data:
             num = game[0][3:]
             total += self.calcCompleteGame(num, game[1], game[2:], survPt, killPt, huntFasterPt)
-        print(total)
         return total
 
     def calcByOne(self, data, num: int):
@@ -111,7 +106,6 @@ class ParkourTag(SurvivalInterface, KillsInterface):
         for game in data:
             num = game[0][3:]
             total += self.calcCompleteGame(num, game[1], game[2:], survPt, killPt, huntFasterPt)
-        print(total)
         return total
 
     def calc(self, cur, player: str, scoring_type: str, extra_query: str) -> int:

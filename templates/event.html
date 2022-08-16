@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://d3js.org/d3.v7.min.js" charset="utf-8"></script>
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../static/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/event.css">
 </head>
 <body>
 <div class="ranking" id="ranking">
@@ -88,23 +89,24 @@
         </div>
     </div>
 </div>
-<div id="graph">
 
-</div>
+<div class="vis-holder" id='vis-svg'></div>
+
 <div id="game-choices">
-    <div id="ar-choice" class="game-icon"> ar</div>
-    <div id="bb-choice" class="game-icon"> bb</div>
-    <div id="bm-choice" class="game-icon"> bm</div>
-    <div id="gr-choice" class="game-icon"> gr</div>
-    <div id="hitw-choice" class="game-icon"> hitw</div>
-    <div id="md-choice" class="game-icon"> md</div>
-    <div id="pt-choice" class="game-icon"> pt</div>
-    <div id="sot-choice" class="game-icon"> sot</div>
-    <div id="sb-choice" class="game-icon"> sb</div>
-    <div id="sg-choice" class="game-icon"> sg</div>
-    <div id="tgt-choice" class="game-icon"> tgt</div>
-    <div id="rsr-choice" class="game-icon"> rsr</div>
+    <div id="ar" class="game-icon"> ar</div>
+    <div id="bb" class="game-icon"> bb</div>
+    <div id="bm" class="game-icon"> bm</div>
+    <div id="gr" class="game-icon"> gr</div>
+    <div id="hitw" class="game-icon"> hitw</div>
+    <div id="md" class="game-icon"> md</div>
+    <div id="pt" class="game-icon"> pt</div>
+    <div id="rsr" class="game-icon"> rsr</div>
+    <div id="sot" class="game-icon"> sot</div>
+    <div id="sb" class="game-icon"> sb</div>
+    <div id="sg" class="game-icon"> sg</div>
+    <div id="tgt" class="game-icon"> tgt</div>
 </div>
+<script type="text/javascript" src="../static/graph.js"></script>
 </body>
 </html>
 
