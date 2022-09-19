@@ -27,23 +27,35 @@ class Player:
         self.name = name
         self.cur = cursor
 
-    def cal_player_avg(self, scoring_type: str = 'auto', include_season_one: bool = True) -> int:
+    # def cal_player_avg(self, scoring_type: str = 'auto', include_season_one: bool = True) -> int:
+    #     ignore_events = []
+    #     if not include_season_one:
+    #         ignore_events = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    #     avg = 0
+    #     num_of_included_events = 0
+    #
+    #     query = "SELECT MCCNUM FROM MCCDATA WHERE PLAYER = '" + self.name + "';"
+    #     self.cur.execute(query)
+    #     mccs = self.cur.fetchall()
+    #     mccs = [i[0][3:] for i in mccs]
+    #
+    #     for x in [i for i in mccs if i not in ignore_events]:
+    #         num_of_included_events += 1
+    #         print(self.calc_some_events(str(" AND MCCNUM = 'MCC" + str(x) + "';"), scoring_type, True))
+    #         avg += sum(self.calc_some_events(str(" AND MCCNUM = 'MCC" + str(x) + "';"), scoring_type, True))
+    #     return int(avg / num_of_included_events)
+
+    def cal_player_avg(self, scoring_type: str = 'auto', include_season_one: bool = True) -> float:
         ignore_events = []
         if not include_season_one:
             ignore_events = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-        avg = 0
         num_of_included_events = 0
 
-        query = "SELECT MCCNUM FROM MCCDATA WHERE PLAYER = '" + self.name + "';"
+        query = "SELECT EVENT_TOTAL FROM MCCDATA WHERE PLAYER = '" + self.name + "';"
         self.cur.execute(query)
-        mccs = self.cur.fetchall()
-        mccs = [i[0][3:] for i in mccs]
-
-        for x in [i for i in mccs if i not in ignore_events]:
-            num_of_included_events += 1
-            print(self.calc_some_events(str(" AND MCCNUM = 'MCC" + str(x) + "';"), scoring_type, True))
-            avg += sum(self.calc_some_events(str(" AND MCCNUM = 'MCC" + str(x) + "';"), scoring_type, True))
-        return int(avg / num_of_included_events)
+        totals = self.cur.fetchall()
+        totals = [i[0] for i in totals]
+        return float(f'{(sum(totals) / len(totals)):.2f}')
 
     def calc_cur_games(self, scoring_type: str = 'auto', ignore_events: [] = []):
         extra_query = ";"
@@ -61,9 +73,9 @@ class Player:
              Meltdown.calc(Meltdown(), self.cur, self.name, scoring_type, extra_query),
              ParkourTag.calc(ParkourTag(self.cur), self.cur, self.name, scoring_type, extra_query),
              RocketSpleefRush.calc(RocketSpleefRush(), self.cur, self.name, scoring_type, extra_query),
+             SandsOfTime.calc(SandsOfTime(), self.cur, self.name, scoring_type, extra_query),
              SkyBattle.calc(SkyBattle(self.cur), self.cur, self.name, scoring_type, extra_query),
              SurvivalGames.calc(SurvivalGames(self.cur), self.cur, self.name, scoring_type, extra_query),
-             SandsOfTime.calc(SandsOfTime(), self.cur, self.name, scoring_type, extra_query),
              TGTTOS.calc(TGTTOS(), self.cur, self.name, scoring_type, extra_query),
              ]
         if if_all_games:

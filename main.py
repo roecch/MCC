@@ -1,7 +1,8 @@
 import mysql
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, json
 from flask_mysqldb import MySQL
 from python.Player import Player
+from python.constants import games
 
 app = Flask(__name__)
 
@@ -34,9 +35,28 @@ def event():
     return render_template('event.html')
 
 
-@app.route('/get_data')
+@app.route('/get_data', methods=['GET'])
 def get_data():
-    return 0
+    teams = json.loads(request.args['teams'])
+    games.append('AVG')
+    if teams and request.method == 'GET':
+        print(teams)
+        map = []
+        for color, tmates in teams:
+            teammates_map = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            for tmate in tmates.split(','):
+                if tmate != '':
+                    cursor = mysql.connection.cursor()
+                    p = Player(tmate, cursor)
+                    d = p.calc_cur_games()
+                    d.append(p.cal_player_avg())
+                    teammates_map = [sum(x) for x in zip(*(teammates_map, d))]
+
+            for i, game_avg in enumerate(teammates_map):
+                print(game_avg)
+                print(i)
+                map.append({"color": color, "game": games[i], "pts": game_avg})
+        return jsonify(map)
 
 
 if __name__ == '__main__':

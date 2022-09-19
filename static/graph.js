@@ -1,99 +1,60 @@
-let games = ['AR', 'BB', 'BM', 'GR', 'HITW', 'MD', 'PT', 'SOT', 'SB', 'SG', 'TGTTOS', 'RSR']
-
-let testTeamsJson = [
-    {"color": "red", 'game': 'AR', 'pts': 10},
-    {"color": "red", 'game': 'BB', 'pts': 20},
-    {"color": "red", 'game': 'BM', 'pts': 30},
-    {"color": "red", 'game': 'GR', 'pts': 40},
-    {"color": "red", 'game': 'HITW', 'pts': 50},
-    {"color": "red", 'game': 'PT', 'pts': 60},
-    {"color": "red", 'game': 'SOT', 'pts': 70},
-    {"color": "red", 'game': 'SG', 'pts': 80},
-    {"color": "orange", 'game': 'AR', 'pts': 20},
-    {"color": "orange", 'game': 'BB', 'pts': 30},
-    {"color": "orange", 'game': 'BM', 'pts': 40},
-    {"color": "orange", 'game': 'GR', 'pts': 50},
-    {"color": "orange", 'game': 'HITW', 'pts': 60},
-    {"color": "orange", 'game': 'PT', 'pts': 70},
-    {"color": "orange", 'game': 'SOT', 'pts': 80},
-    {"color": "orange", 'game': 'SG', 'pts': 10},
-    {"color": "yellow", 'game': 'AR', 'pts': 30},
-    {"color": "yellow", 'game': 'BB', 'pts': 40},
-    {"color": "yellow", 'game': 'BM', 'pts': 50},
-    {"color": "yellow", 'game': 'GR', 'pts': 60},
-    {"color": "yellow", 'game': 'HITW', 'pts': 70},
-    {"color": "yellow", 'game': 'PT', 'pts': 80},
-    {"color": "yellow", 'game': 'SOT', 'pts': 10},
-    {"color": "yellow", 'game': 'SG', 'pts': 20},
-    {"color": "lime", 'game': 'AR', 'pts': 40},
-    {"color": "lime", 'game': 'BB', 'pts': 50},
-    {"color": "lime", 'game': 'BM', 'pts': 60},
-    {"color": "lime", 'game': 'GR', 'pts': 70},
-    {"color": "lime", 'game': 'HITW', 'pts': 80},
-    {"color": "lime", 'game': 'PT', 'pts': 10},
-    {"color": "lime", 'game': 'SOT', 'pts': 20},
-    {"color": "lime", 'game': 'SG', 'pts': 30},
-    {"color": "green", 'game': 'AR', 'pts': 50},
-    {"color": "green", 'game': 'BB', 'pts': 60},
-    {"color": "green", 'game': 'BM', 'pts': 70},
-    {"color": "green", 'game': 'GR', 'pts': 80},
-    {"color": "green", 'game': 'HITW', 'pts': 10},
-    {"color": "green", 'game': 'PT', 'pts': 20},
-    {"color": "green", 'game': 'SOT', 'pts': 30},
-    {"color": "green", 'game': 'SG', 'pts': 40},
-    {"color": "cyan", 'game': 'AR', 'pts': 60},
-    {"color": "cyan", 'game': 'BB', 'pts': 70},
-    {"color": "cyan", 'game': 'BM', 'pts': 80},
-    {"color": "cyan", 'game': 'GR', 'pts': 90},
-    {"color": "cyan", 'game': 'HITW', 'pts': 10},
-    {"color": "cyan", 'game': 'PT', 'pts': 20},
-    {"color": "cyan", 'game': 'SOT', 'pts': 30},
-    {"color": "cyan", 'game': 'SG', 'pts': 40},
-    {"color": "aqua", 'game': 'AR', 'pts': 53},
-    {"color": "aqua", 'game': 'BB', 'pts': 78},
-    {"color": "aqua", 'game': 'BM', 'pts': 45},
-    {"color": "aqua", 'game': 'GR', 'pts': 45},
-    {"color": "aqua", 'game': 'HITW', 'pts': 86},
-    {"color": "aqua", 'game': 'PT', 'pts': 13},
-    {"color": "aqua", 'game': 'SOT', 'pts': 87},
-    {"color": "aqua", 'game': 'SG', 'pts': 56},
-    {"color": "blue", 'game': 'AR', 'pts': 95},
-    {"color": "blue", 'game': 'BB', 'pts': 34},
-    {"color": "blue", 'game': 'BM', 'pts': 78},
-    {"color": "blue", 'game': 'GR', 'pts': 98},
-    {"color": "blue", 'game': 'HITW', 'pts': 12},
-    {"color": "blue", 'game': 'PT', 'pts': 64},
-    {"color": "blue", 'game': 'SOT', 'pts': 78},
-    {"color": "blue", 'game': 'SG', 'pts': 64},
-    {"color": "purple", 'game': 'AR', 'pts': 45},
-    {"color": "purple", 'game': 'BB', 'pts': 36},
-    {"color": "purple", 'game': 'BM', 'pts': 61},
-    {"color": "purple", 'game': 'GR', 'pts': 86},
-    {"color": "purple", 'game': 'HITW', 'pts': 15},
-    {"color": "purple", 'game': 'PT', 'pts': 52},
-    {"color": "purple", 'game': 'SOT', 'pts': 53},
-    {"color": "purple", 'game': 'SG', 'pts': 69},
-    {"color": "pink", 'game': 'AR', 'pts': 35},
-    {"color": "pink", 'game': 'BB', 'pts': 57},
-    {"color": "pink", 'game': 'BM', 'pts': 42},
-    {"color": "pink", 'game': 'GR', 'pts': 95},
-    {"color": "pink", 'game': 'HITW', 'pts': 64},
-    {"color": "pink", 'game': 'PT', 'pts': 98},
-    {"color": "pink", 'game': 'SOT', 'pts': 36},
-    {"color": "pink", 'game': 'SG', 'pts': 97}
-];
-
-let teams;
-
+let games = ['AR', 'BB', 'BM', 'GR', 'HITW', 'PT', 'SOT', 'SG']
+let team_data;
 window.onload = () => {
-     teams = { ...sessionStorage};
-     console.log(teams)
-    make_graph(['AR', 'BB', 'BM', 'GR', 'HITW', 'PT', 'SOT', 'SG'],)
+    make_team_avgs_json({...sessionStorage}).then(res => make_graph(games, res))
 };
 
+function update_xaxis() {
+    if (if_games_order_udpated()) {
+        make_graph(games, team_data)
+    }
+}
 
-function make_graph(eight_games) {
-    let margin = {top: 20, right: 20, bottom: 30, left: 50},
+
+function if_games_order_udpated() {
+    let list = [...document.getElementById('game-choices').querySelectorAll('.draggable')];
+    console.log(list)
+    list = list.map(x => x.id.toUpperCase())
+    list = list.slice(0,8);
+    console.log(list)
+    console.log(games)
+    console.log(list.every((val, index) => val === games[index]))
+    if (!list.every((val, index) => val === games[index])) {
+        games = list
+        console.log(games)
+        return true;
+    }
+    return false;
+}
+
+
+function make_team_avgs_json(t) {
+    return new Promise(res => {
+        // convert object array
+        let teams_map = Object.entries(t)
+
+        $.ajax({
+            type: "GET",
+            url: "/get_data",
+            data: {teams: JSON.stringify(teams_map)},
+            success: function (data) {
+                team_data = data
+                res(data)
+            },
+            error: function () {
+                alert('something bad happened');
+            }
+        })
+    })
+}
+
+
+function make_graph(eight_games, data) {
+    data = data.filter((d) => {
+        return d.game !== "AVG" && eight_games.includes(d.game);
+    });
+
+    let margin = {top: 20, right: 20, bottom: 20, left: 50},
         width = 860 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -107,30 +68,44 @@ function make_graph(eight_games) {
             "translate(" + margin.left + "," + margin.top + ")");
 
 
+    let xShift = 72;
+
     // Add X axis
     var x = d3.scaleBand()
         .domain(eight_games)
         .range([0, width]);
     var xAxis = svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(30," + height + ")")
+        .attr("transform", "translate(" + xShift + "," + height + ")")
         .call(d3.axisBottom(x));
+
+    let xAxisGrid = d3.axisBottom(x)
+        .tickSize(-height, 0)
+        .tickFormat('')
+    svg.append('g')
+        .attr('class', 'x axis-grid')
+        .attr('transform', 'translate(' + xShift + ',' + height + ')')
+        .call(xAxisGrid);
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([0, 1000])
+        .domain([0, 20000])
         .range([height, 0]);
     var yAxis = svg.append("g")
         .attr("class", "y axis")
-        .attr("transform", "translate(30,0)")
+        .attr("transform", "translate(" + xShift + ",0)")
         .call(d3.axisLeft(y));
 
-    var sumstat = d3.group(testTeamsJson, d => d.color)
+
+    var sumstat = d3.group(data, d => d.color)
+    console.log(sumstat)
+    console.log(sumstat.keys())
 
 
     // list of group names
     var color = d3.scaleOrdinal()
-        .domain(sumstat.keys())
+        // .domain(sumstat.keys())
+        .domain(["red", "orange", "yellow", "lime", "green", "cyan", "aqua", "blue", "purple", "pink"])
         .range(['#FF0000', '#FFA500', '#FFFF00', '#00FF55', '#32CD32', '#00FFFF', '#008B8B', '#0000FF', '#AA00FF', '#FF69B4'])
 
 
@@ -139,36 +114,55 @@ function make_graph(eight_games) {
         .data(sumstat)
         .enter()
         .append("path")
+        .attr('id', function (d) {
+            return d[0]
+        })
         .attr("fill", "none")
         .attr("stroke", function (d) {
             return color(d[0])
         })
         .attr("stroke-width", 1.5)
-        .attr("transform", "translate(" + (30 + (x.bandwidth() / 2)) + ",0)")
+        .attr("transform", "translate(" + (xShift + (x.bandwidth() / 2)) + ",0)")
         .attr("d", function (d) {
-            console.log(d);
+            console.log(d)
             let p = 0
+            let multiplitier = 1
+            let inc_multi = false
             return d3.line()
                 .x(function (d) {
+                    if (inc_multi) {
+                        multiplitier += 0.5
+                        inc_multi = false
+                    } else {
+                        inc_multi = true
+                    }
                     return x(d.game);
                 })
                 .y(function (d) {
-                    p += d.pts;
+                    p += (d.pts * multiplitier);
+                    console.log(p)
                     return y(p);
                 })
                 (d[1])
         })
-        .on("mouseover", hoverLine)
-        .on("mousemove", hoverLine)
-        .on("mouseout", function (event,d) {
-            d3.select(this).attr("stroke", function (d) {
-                return color(d[0]);
+        .on("mouseover", function () {
+            let cur = this
+            d3.select(this).style("stroke-width", 5);
+            d3.selectAll(lines).each(function () {
+                if (this !== cur) {
+                    // d3.select(this).style("stroke", '#999999')
+                    d3.select(this).transition().duration('50').attr('opacity', '.25');
+                }
+            });
+        })
+        .on("mouseleave", function () {
+            d3.select(this).style("stroke-width", 1.5);
+            d3.selectAll(lines).each(function () {
+                // d3.select(this).style("stroke", color[this.id])
+                d3.select(this).transition().duration('50').attr('opacity', '1');
             })
-            tooltip.style("visibility", "hidden");
         });
 
-
-    //create tooltip
     let tooltip = d3.select("#vis-svg")
         .append("div")
         .attr('class', 'tooltip')
@@ -177,18 +171,140 @@ function make_graph(eight_games) {
         .style("visibility", "hidden")
 
     //hover for line chart
-    function hoverLine(event,d) {
+    function hoverLine(event, d) {
         d3.select(this)
-
-        // let coords = d3.pointer(event, svg)
-        // let invertX = x.invert(coords[0] - margin.left - 19)
-        // let invertY = height - (y.invert(coords[1] - 60) * -1)
-        // //Update Tooltip Position & value
-        // tooltip
-        //     .style('top', coords[1] + 'px')
-        //     .style('left', coords[0] + 'px')
-        //     .text(d[0] + "\n" + invertX + "\n" + invertY)
-        //     .style("visibility", "visible")
+        let coords = d3.pointer(event, svg)
+        let invertX = x.invertX(coords[0] - margin.left - 19)
+        let invertY = height - (y.invert(coords[1] - 60) * -1)
+        //Update Tooltip Position & value
+        tooltip
+            .style('top', coords[1] + 'px')
+            .style('left', coords[0] + 'px')
+            // .text(d[0] + "\n" + invertX + "\n" + invertY)
+            .style("visibility", "visible")
 
     }
 }
+
+let draggingEle;
+let x = 0;
+let y = 0;
+let placeholder;
+let isDraggingStarted = false;
+
+
+const mouseDownHandler = function (e) {
+    draggingEle = e.target;
+
+    // Calculate the mouse position
+    const rect = draggingEle.getBoundingClientRect();
+    // x = e.pageX - rect.left;
+    // y = e.pageY - rect.top;
+    x = e.clientX;
+    y = e.clientY;
+
+    // Attach the listeners to `document`
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+};
+
+const mouseMoveHandler = function (e) {
+    const draggingRect = draggingEle.getBoundingClientRect();
+
+    if (!isDraggingStarted) {
+        // Update the flag
+        isDraggingStarted = true;
+
+        // Let the placeholder take the height of dragging element
+        // So the next element won't move up
+        placeholder = document.createElement('div');
+        placeholder.classList.add('placeholder');
+        draggingEle.parentNode.insertBefore(
+            placeholder,
+            draggingEle.nextSibling
+        );
+
+        // Set the placeholder's height
+        placeholder.style.height = `${draggingRect.height}px`;
+        placeholder.style.border = "thick solid #0000FF";
+    }
+
+    // Set position for dragging element
+    draggingEle.style.position = 'absolute';
+    draggingEle.style.top = `${e.pageY}px`;
+    draggingEle.style.left = `${e.pageX - x}px`;
+
+    const prevEle = draggingEle.previousElementSibling;
+    const nextEle = placeholder.nextElementSibling;
+
+    // User moves item to the top
+    if (prevEle && isAbove(draggingEle, prevEle)) {
+        // The current order    -> The new order
+        // prevEle              -> placeholder
+        // draggingEle          -> draggingEle
+        // placeholder          -> prevEle
+        swap(placeholder, draggingEle);
+        swap(placeholder, prevEle);
+        return;
+    }
+
+    // User moves the dragging element to the bottom
+    if (nextEle && isAbove(nextEle, draggingEle)) {
+        // The current order    -> The new order
+        // draggingEle          -> nextEle
+        // placeholder          -> placeholder
+        // nextEle              -> draggingEle
+        swap(nextEle, placeholder);
+        swap(nextEle, draggingEle);
+    }
+};
+
+const mouseUpHandler = function () {
+    // Remove the placeholder
+    placeholder && placeholder.parentNode.removeChild(placeholder);
+    // Reset the flag
+    isDraggingStarted = false;
+
+    // Remove the position styles
+    draggingEle.style.removeProperty('top');
+    draggingEle.style.removeProperty('left');
+    draggingEle.style.removeProperty('position');
+
+    x = null;
+    y = null;
+    draggingEle = null;
+
+    // Remove the handlers of `mousemove` and `mouseup`
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+};
+
+const isAbove = function (nodeA, nodeB) {
+    // Get the bounding rectangle of nodes
+    const rectA = nodeA.getBoundingClientRect();
+    const rectB = nodeB.getBoundingClientRect();
+
+    return rectA.top + rectA.height / 2 < rectB.top + rectB.height / 2;
+    // return rectA.top < rectB.top;
+
+};
+
+const swap = function (nodeA, nodeB) {
+    const parentA = nodeA.parentNode;
+    const siblingA = nodeA.nextSibling === nodeB ? nodeA : nodeA.nextSibling;
+
+    // Move `nodeA` to before the `nodeB`
+    nodeB.parentNode.insertBefore(nodeA, nodeB);
+
+    // Move `nodeB` to before the sibling of `nodeA`
+    parentA.insertBefore(nodeB, siblingA);
+    update_xaxis();
+};
+
+// Query the list element
+const list = document.getElementById('game-choices');
+
+// Query all items
+[].slice.call(list.querySelectorAll('.draggable')).forEach(function (item) {
+    item.addEventListener('mousedown', mouseDownHandler);
+});

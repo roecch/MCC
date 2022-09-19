@@ -378,19 +378,19 @@
 }
 
 #sot {
-    grid-area: 7 / 3 / 8 / 4;
-    height: 60px;
-    width: 120px;
-}
-
-#sb {
     grid-area: 6 / 3 / 7 / 4;
     height: 60px;
     width: 120px;
 }
 
-#sg {
+#sb {
     grid-area: 6 / 4 / 7 / 5;
+    height: 60px;
+    width: 120px;
+}
+
+#sg {
+    grid-area: 7 / 3 / 8 / 4;
     height: 60px;
     width: 120px;
 }

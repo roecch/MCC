@@ -101,7 +101,7 @@ function updating_player_card() {
             if (pn.innerHTML !== item.firstElementChild.id && item.firstElementChild.id !== '') {
                 let img = document.createElement("img");
                 img.id = 'skinImgDiv'
-                img.src = "https://mc-heads.net/body/" + item.firstElementChild.id + "/right";
+                img.src = "https://mc-heads.net/body/" + get_ign_for_name(item.firstElementChild.id) + "/right";
                 let oldImg = document.getElementById('skinImgDiv');
                 document.getElementById('skin').replaceChild(img, oldImg)
 
@@ -128,10 +128,11 @@ function updating_player_card_helper(data) {
     let pc_holders = document.getElementsByClassName('pc')
     console.log(pc_holders)
     Array.from(pc_holders).slice(1, -1).forEach(function (item, index) {
+        console.log(item.innerHTML)
         item.innerHTML = data[index]
-        if (item.id === 'avg') {
-            return data[index]
-        }
+        // if (item.id === 'avg') {
+        //     return data[index]
+        // }
     });
 }
 
@@ -156,7 +157,7 @@ function get_players_under_each_team() {
     return players_under_each_team
 }
 
-document.getElementById('arrow').addEventListener('click', function() {
+document.getElementById('arrow').addEventListener('click', function () {
     save_teams()
     location.href = "event";
 })
@@ -207,5 +208,28 @@ function change_team_total_calc(choice) {
     let players_under_each_team = get_players_under_each_team()
     for (let players_of_team of players_under_each_team) {
 
+    }
+}
+
+function get_ign_for_name(name) {
+    console.log(name)
+
+    var ignMap = {'5up' : '5uppps',
+        'Eret' : 'The_Eret',
+        'GoodTimesWithScar' : 'GoodTimeWithScar',
+        'KingBurren' : 'King_Burren',
+        'krtzzy' : 'Krtzy',
+        'rtgame' : 'Magistrex',
+        'shubble' : 'ShubbleYT',
+        'spifey' : 'Spifeey',
+        'Sylvee' : 'sylvee_',
+        'TheOrionSound': 'OrionSound',
+        'Tubbo' : 'Tubbo_'}
+
+    if (ignMap[name] === undefined) {
+        return name
+    }
+    else {
+        return ignMap[name]
     }
 }

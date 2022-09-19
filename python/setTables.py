@@ -7,8 +7,8 @@ import mysql.connector
 def create_table(cur):
     cur.execute('DROP TABLE IF EXISTS MCCDATA')
     createQuery = ['CREATE TABLE IF NOT EXISTS MCCDATA (MCCNUM VARCHAR(20), PLAYER VARCHAR(20), TEAM VARCHAR(20), '
-                   'AR_TIME TIME NULL, AR_PLACE INT NULL , BB_KILLS INT NULL, BB_WINS INT NULL, BINGO_FAST VARCHAR('
-                   '20) NULL, LOCK_BINGO VARCHAR(20) NULL, BM VARCHAR(20) NULL, FR_TIME TIME '
+                   'EVENT_TOTAL FLOAT, AR_TIME TIME NULL, AR_PLACE INT NULL , BB_KILLS INT NULL, BB_WINS INT NULL, '
+                   'BINGO_FAST VARCHAR(20) NULL, LOCK_BINGO VARCHAR(20) NULL, BM VARCHAR(20) NULL, FR_TIME TIME '
                    'NULL, FR_PLACE INT NULL, GR VARCHAR(20) NULL, GRB INT NULL, HITW1 INT NULL, '
                    'HITW2 INT NULL, HITW3 INT NULL, MD_KILLS INT NULL, MD_CRATES INT NULL, MD_SURVIVAL '
                    'INT NULL, PT_RED VARCHAR(20) NULL, PT_ORANGE VARCHAR(20) NULL, '
@@ -40,6 +40,7 @@ def set_single_MCC_data(cur, rowStart, rowEnd, colStart, colEnd):
             pass
 
         gameToSql = {"Team": "TEAM",
+                     "Event Total": "Event_TOTAL",
                      "Ace Race - Time": "AR_TIME",
                      "Ace Race - Place": "AR_PLACE",
                      "Battle Box - Kills": "BB_KILLS",

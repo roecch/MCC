@@ -16,15 +16,18 @@ class GameAbstract:
     def calc(self, cur, player: str, mccnum: str, query) -> int:
         player = '"' + player + '"'
         query = query.replace("player", player)
-        cur.execute(query)
-        data = cur.fetchall()
+        rows_count = cur.execute(query)
 
-        if mccnum == "auto":
-            return self.calcAuto(data)
-        elif mccnum == "new":
-            return self.calcNew(data)
+        if rows_count > 0:
+            data = cur.fetchall()
+            if mccnum == "auto":
+                return int(self.calcAuto(data) / len(data))
+            elif mccnum == "new":
+                return int(self.calcNew(data) / len(data))
+            else:
+                return int(self.calcByOne(data) / len(data))
         else:
-            return self.calcByOne(data, mccnum)
+            return 0
 
     # Select the string that is showing a range which the num is between
     # Args:

@@ -14,16 +14,20 @@ class BingoButFast:
         return total
 
     def calc(self, cur, player: str, scoring_type: str, extra_query: str) -> int:
-        query = "SELECT MCCNUM, TEAM, BINGO_FAST FROM MCCDATA WHERE BINGO_FAST IS NOT NULL AND (MCCNUM, TEAM) in (SELECT MCCNUM, TEAM FROM MCCDATA WHERE BINGO_FAST IS NOT NULL AND PLAYER = 'captainpuffy')" + extra_query
-        cur.execute(query.replace('player', "'" + player + "'"))
+        query = "SELECT MCCNUM, TEAM, BINGO_FAST FROM MCCDATA WHERE BINGO_FAST IS NOT NULL AND (MCCNUM, TEAM) in (" \
+                "SELECT MCCNUM, TEAM FROM MCCDATA WHERE BINGO_FAST IS NOT NULL AND PLAYER = player)" + \
+                extra_query
+        rows_count = cur.execute(query.replace('player', "'" + player + "'"))
         data = cur.fetchall()
         print(data)
-
-        total = 0
-        s = set([x[0] for x in data])
-        print(s)
-        for game in data:
-            print(game)
-            total += self.calc_round(game[0])
-        print(total)
-        return total
+        if rows_count > 0:
+            total = 0
+            s = set([x[0] for x in data])
+            print(s)
+            for game in data:
+                print(game)
+                total += self.calc_round(game[2])
+            print(total)
+            return int(total / len(data))
+        else:
+            return 0
